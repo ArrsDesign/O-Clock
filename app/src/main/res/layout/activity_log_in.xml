@@ -5,12 +5,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LogIn">
-
-
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:text="Email"
-        tools:layout_editor_absoluteX="center"
-        tools:layout_editor_absoluteY="parent" />
 </LinearLayout>
