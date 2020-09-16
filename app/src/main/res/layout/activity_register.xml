@@ -19,7 +19,7 @@
         android:orientation="vertical"
         android:layout_height="match_parent">
 
-    <!--Sign In Title-->
+    <!--Register Title-->
         <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,59 +27,98 @@
         android:text="Register"
         android:textColor="@color/titles"
         android:textStyle="bold"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+            android:gravity="center"/>
+
+            <!--Username Title-->
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="40dp"
+             android:textSize="20dp"
+             android:textStyle="bold"
+             android:text="Username*"
+             android:layout_marginTop="40dp"
+             android:textColor="@color/titles"/>
 
     <!--Username Entry-->
         <EditText
         android:id="@+id/username"
-        android:textSize="20dp"
+        android:textSize="14dp"
         android:textStyle="bold"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="45dp"
         android:hint="Enter your Username"
         android:paddingVertical="15dp"
         android:textColor="@color/text"
         android:inputType="textPersonName"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="5dp"/>
+
+<!--Email Title-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="Email*"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/titles"/>
 
     <!--Email Entry-->
         <EditText
         android:id="@+id/email"
-        android:textSize="20dp"
+        android:textSize="14dp"
         android:textStyle="bold"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="45dp"
         android:hint="Enter your Email"
         android:paddingVertical="15dp"
         android:textColor="@color/text"
         android:inputType="textEmailAddress"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="5dp"/>
 
+            <!--Password Title-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="Password*"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/titles"/>
     <!--Password Entry-->
         <EditText
         android:id="@+id/password"
-        android:textSize="20dp"
+        android:textSize="14dp"
         android:textStyle="bold"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="45dp"
         android:hint="Enter your Password"
         android:paddingVertical="15dp"
         android:textColor="@color/text"
         android:inputType="textPassword"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="5dp"/>
 
+            <!--Re-Entry Password Title-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="Password Confirmation*"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/titles"/>
     <!--Password Re-Entry-->
         <EditText
         android:id="@+id/reEnterPassword"
-        android:textSize="20dp"
+        android:textSize="14dp"
         android:textStyle="bold"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:hint="Confirm your Password"
+        android:layout_height="45dp"
+        android:hint="Re-Enter your Password"
         android:paddingVertical="15dp"
         android:textColor="@color/text"
         android:inputType="textPassword"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="5dp"/>
 
     <!--Registration Button-->
         <Button
