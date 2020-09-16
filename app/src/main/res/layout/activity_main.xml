@@ -9,6 +9,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <!--Sign In Title-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,36 +19,30 @@
         android:textStyle="bold"
         android:textSize="30dp"/>
 
-    <RelativeLayout
+    <!--Email Entry-->
+    <EditText
+        android:id="@+id/email"
+        android:textSize="20dp"
+        android:textStyle="bold"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
+        android:hint="Enter your Email"
+        android:paddingVertical="15dp"
+        android:textColor="@color/text"
+        android:inputType="textEmailAddress"
         android:layout_marginTop="40dp"/>
-        <EditText
-            android:id="@+id/email"
-            android:textSize="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:hint="Enter your Email"
-            android:paddingVertical="15dp"
-            android:textColor="@color/text"
-            android:inputType="textEmailAddress"/>
-        <EditText
+
+    <!--Password Entry-->
+    <EditText
         android:id="@+id/password"
         android:textSize="20dp"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:hint="Enter your Password"
         android:paddingVertical="15dp"
         android:textColor="@color/text"
         android:inputType="textPassword"
-            android:layout_marginTop="40dp"
-            />
-
-    <!--<ImageView
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/ic_baseline_alternate_email_24" />
--->
+        android:layout_marginTop="40dp"/>
 
 </LinearLayout>
