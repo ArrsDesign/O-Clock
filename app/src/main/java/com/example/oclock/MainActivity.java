@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_main);
 
         mEmail = findViewById(R.id.email);
         mPassword = findViewById(R.id.password);
@@ -41,43 +41,51 @@ public class MainActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
-        mLogInButton.setOnClickListener(new View.OnClickListener() {
+        mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = mEmail.getText().toString().trim();
-                String password = mPassword.getText().toString().trim();
+                startActivity(new Intent(getApplicationContext(), Register.class));
 
-                if (TextUtils.isEmpty(email)) {
-                    mEmail.setError("Email is Required");
-                    return;
-                }
-
-                if (TextUtils.isEmpty(password)) {
-                    mPassword.setError("Password is Required");
-                    return;
-
-                }
-                if (password.length() < 6) {
-                    mPassword.setError("Password MUST be >= 6");
-                    return;
-                }
-                progressBar.setVisibility(View.VISIBLE);
-
-                //Authenticate
-                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                mLogInButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), Home.class));
-                        } else {
-                            Toast.makeText(MainActivity.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    public void onClick(View v) {
+                        String email = mEmail.getText().toString().trim();
+                        String password = mPassword.getText().toString().trim();
+
+                        if (TextUtils.isEmpty(email)) {
+                            mEmail.setError("Email is Required");
+                            return;
                         }
+
+                        if (TextUtils.isEmpty(password)) {
+                            mPassword.setError("Password is Required");
+                            return;
+
+                        }
+                        if (password.length() < 6) {
+                            mPassword.setError("Password MUST be >= 6");
+                            return;
+                        }
+                        progressBar.setVisibility(View.VISIBLE);
+
+                        //Authenticate
+                        fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(MainActivity.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), Home.class));
+                                } else {
+                                    Toast.makeText(MainActivity.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
+
 
                     }
                 });
             }
-
         });
     }
 }

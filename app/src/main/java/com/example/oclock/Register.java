@@ -75,26 +75,12 @@ public class Register extends AppCompatActivity {
                         } else {
                             Toast.makeText(Register.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                /*
-                }
-                if (!isValidEmail(email)) {
-                    mEmail.setError("Invalid email");
-                    return;
-                }
-
-                if (TextUtils.isEmpty(mReEnterPassword)) {
-                mReEnterPassword.setError("Confirm your Password");
-                return;
-                 }
-                if (!password.equals(password3)) {
-                mReEnterPassword.setError("Different Password");
-                return;
-                 }*/
 
                     }
                 });
             }
         });
+
         mSignInLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
