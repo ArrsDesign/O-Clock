@@ -51,29 +51,31 @@ public class Register extends AppCompatActivity {
         });
 
     }
-    private void Register(){
+    private void Register() {
         String email = emailEt.getText().toString();
         String password = passwordEt.getText().toString();
         String password2 = reEnterPasswordEt.getText().toString();
-        if(TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)) {
             emailEt.setError("Enter your Email");
             return;
-        } else if(TextUtils.isEmpty(password)){
+        } else if (TextUtils.isEmpty(password)) {
             passwordEt.setError("Enter your Password");
             return;
-        } else if(TextUtils.isEmpty(password2)){
+        } else if (TextUtils.isEmpty(password2)) {
             reEnterPasswordEt.setError("Confirm your Password");
             return;
-        } else if(!password.equals(password2)){
+        } else if (!password.equals(password2)) {
             reEnterPasswordEt.setError("Different Password");
             return;
-        } else if(password.length()<4){
+        } else if (password.length() < 4) {
             reEnterPasswordEt.setError("Length should be greater than 4 characters");
             return;
-        } else if(!isValidEmail(email)) {
+
+        } else if (!isValidEmail(email)) {
             emailEt.setError("Invalid email");
             return;
         }
+
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
