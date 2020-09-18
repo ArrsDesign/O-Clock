@@ -96,9 +96,58 @@
         android:textColor="@color/text"
         android:inputType="textPassword"
         android:layout_marginTop="5dp"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+            <!--Reading Speed Title-->
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="Reading Speed:"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/titles"
+                android:layout_marginRight="20dp"/>
 
-    <!--Registration Button-->
-        <Button
+            <!--Drop Down Selection-->
+            <Spinner
+                android:id="@+id/readingDropDown"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
+</LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <!--Reading Speed Title-->
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Writing Speed:"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/titles"
+                    android:layout_marginRight="20dp"/>
+
+                <!--Drop Down Selection-->
+                <Spinner
+                    android:id="@+id/writingDropDown"
+                    android:layout_width="180dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
+            <!--Registration Button-->
+            <Button
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"

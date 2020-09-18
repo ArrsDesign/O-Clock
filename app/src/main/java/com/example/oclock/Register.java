@@ -37,8 +37,9 @@ public class Register extends AppCompatActivity {
         registerButtonB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Register();
-
+                Intent intent=new Intent(Register.this,MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         signInLinkL.setOnClickListener(new View.OnClickListener() {
