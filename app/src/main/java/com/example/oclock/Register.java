@@ -19,9 +19,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Register extends AppCompatActivity {
-    private EditText email,password,reEnterPassword;
-    private Button registerButton;
-    private TextView signInLink;
+    private EditText emailEt,passwordEt,reEnterPasswordEt;
+    private Button registerButtonB;
+    private TextView signInLinkL;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -29,19 +29,19 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         firebaseAuth = firebaseAuth.getInstance();
-        email = findViewById(R.id.email);
-        password = findViewById(R.id.password);
-        reEnterPassword = findViewById(R.id.reEnterPassword);
-        registerButton = findViewById(R.id.registerButton);
-        signInLink = findViewById(R.id.signInLink);
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        emailEt = findViewById(R.id.email);
+        passwordEt = findViewById(R.id.password);
+        reEnterPasswordEt = findViewById(R.id.reEnterPassword);
+        registerButtonB = findViewById(R.id.registerButton);
+        signInLinkL = findViewById(R.id.signInLink);
+        registerButtonB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Register();
 
             }
         });
-        signInLink.setOnClickListener(new View.OnClickListener() {
+        signInLinkL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Register.this,MainActivity.class);
@@ -52,26 +52,26 @@ public class Register extends AppCompatActivity {
 
     }
     private void Register(){
-        String email1 = email.getText().toString();
-        String password1 = password.getText().toString();
-        String password2 = reEnterPassword.getText().toString();
+        String email = emailEt.getText().toString();
+        String password = passwordEt.getText().toString();
+        String password2 = reEnterPasswordEt.getText().toString();
         if(TextUtils.isEmpty(email)){
-            email.setError("Enter your Email");
+            emailEt.setError("Enter your Email");
             return;
         } else if(TextUtils.isEmpty(password)){
-            password.setError("Enter your Password");
+            passwordEt.setError("Enter your Password");
             return;
-        } else if(TextUtils.isEmpty(reEnterPassword)){
-            reEnterPassword.setError("Confirm your Password");
+        } else if(TextUtils.isEmpty(password2)){
+            reEnterPasswordEt.setError("Confirm your Password");
             return;
-        } else if(!password.equals(reEnterPassword)){
-            reEnterPassword.setError("Different Password");
+        } else if(!password.equals(password2)){
+            reEnterPasswordEt.setError("Different Password");
             return;
         } else if(password.length()<4){
-            reEnterPassword.setError("Length should be greater than 4 characters");
+            reEnterPasswordEt.setError("Length should be greater than 4 characters");
             return;
         } else if(!isValidEmail(email)) {
-            email.setError("Invalid email");
+            emailEt.setError("Invalid email");
             return;
         }
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

@@ -30,29 +30,6 @@
         android:textSize="30dp"
             android:gravity="center"/>
 
-            <!--Username Title-->
-         <TextView
-             android:layout_width="match_parent"
-             android:layout_height="40dp"
-             android:textSize="20dp"
-             android:textStyle="bold"
-             android:text="Username*"
-             android:layout_marginTop="40dp"
-             android:textColor="@color/titles"/>
-
-    <!--Username Entry-->
-        <EditText
-        android:id="@+id/username"
-        android:textSize="14dp"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:hint="Enter your Username"
-        android:paddingVertical="15dp"
-        android:textColor="@color/text"
-        android:inputType="textPersonName"
-        android:layout_marginTop="5dp"/>
-
 <!--Email Title-->
             <TextView
                 android:layout_width="match_parent"

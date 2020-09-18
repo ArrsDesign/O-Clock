@@ -19,27 +19,27 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText email,password;
-    private Button logIn;
-    private TextView register;
+    private EditText emailEt,passwordEt;
+    private Button logInB;
+    private TextView registerL;
     private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         firebaseAuth = firebaseAuth.getInstance();
-        email = findViewById(R.id.email);
-        password = findViewById(R.id.password);
-        logIn = findViewById(R.id.logIn);
-        register = findViewById(R.id.register);
-        logIn.setOnClickListener(new View.OnClickListener() {
+        emailEt = findViewById(R.id.email);
+        passwordEt = findViewById(R.id.password);
+        logInB = findViewById(R.id.logIn);
+        registerL = findViewById(R.id.register);
+        logInB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Login();
 
             }
         });
-        register.setOnClickListener(new View.OnClickListener() {
+        registerL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,Register.class);
@@ -49,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void Login(){
-        String email1 = email.getText().toString();
-        String password1 = password.getText().toString();
+        String email = emailEt.getText().toString();
+        String password = passwordEt.getText().toString();
         if(TextUtils.isEmpty(email)){
-            email.setError("Enter your Email");
+            emailEt.setError("Enter your Email");
             return;
         } else if(TextUtils.isEmpty(password)){
-            password.setError("Enter your Password");
+            passwordEt.setError("Enter your Password");
             return;
         }
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
