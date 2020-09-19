@@ -34,11 +34,16 @@ public class Register extends AppCompatActivity {
         mUsername = findViewById(R.id.username);
         mPassword = findViewById(R.id.password);
         mReEnterPassword = findViewById(R.id.reEnterPassword);
-        mRegisterButton = findViewById(R.id.registerButton);
+        mRegisterButton = findViewById(R.id.registerBtn);
         mSignInLink = findViewById(R.id.signInLink);
 
         fAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
+
+        if(fAuth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(), Home.class));
+            finish();
+        }
 
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,20 +65,16 @@ public class Register extends AppCompatActivity {
                     mPassword.setError("Password MUST be >= 6");
                     return;
                 }
-                if (fAuth.getCurrentUser() != null) {
-                    startActivity(new Intent(getApplicationContext(), Home.class));
-                    finish();
-                }
-                progressBar.setVisibility(View.VISIBLE);
 
+                //Register User
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Register.this, "User Created", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), Home.class));
+                            Toast.makeText(Register.this, "User Created", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getApplicationContext(), Profile.class));
                         } else {
-                            Toast.makeText(Register.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Register.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
 
                     }
