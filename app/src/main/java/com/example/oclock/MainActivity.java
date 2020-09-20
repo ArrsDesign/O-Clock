@@ -16,17 +16,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-    EditText mEmail, mPassword;
+    private EditText mEmail,mPassword;
     Button mLogInButton;
     TextView mRegister;
-    FirebaseAuth fAuth;
+    private FirebaseAuth fAuth;
     ProgressBar progressBar;
+    private String email;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,53 +42,60 @@ public class MainActivity extends AppCompatActivity {
         mRegister = findViewById(R.id.registerLink);
 
         fAuth = FirebaseAuth.getInstance();
+
+
         progressBar = findViewById(R.id.progressBar);
 
+        mLogInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                email = mEmail.getText().toString();
+                password = mPassword.getText().toString();
+
+                if (email.isEmpty()) {
+                    mEmail.setError("Email is Required");
+                    mEmail.requestFocus();
+                }
+
+                else if (password.length() < 6) {
+                    mPassword.setError("Password MUST be >= 6");
+                    mEmail.requestFocus();
+                }
+                else {
+                    fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            //Account Created
+
+                            if(task.isSuccessful())
+                            {
+                                //Send to different Activity
+                                FirebaseUser user = fAuth.getCurrentUser();
+                                Intent intent = new Intent(getApplicationContext(), Profile.class);
+                                finish();
+                            }
+
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            //Account Not Created
+
+                            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+                }
+            }
+        });
+/*
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Register.class));
-
-                mLogInButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String email = mEmail.getText().toString().trim();
-                        String password = mPassword.getText().toString().trim();
-
-                        if (TextUtils.isEmpty(email)) {
-                            mEmail.setError("Email is Required");
-                            return;
-                        }
-
-                        if (TextUtils.isEmpty(password)) {
-                            mPassword.setError("Password is Required");
-                            return;
-
-                        }
-                        if (password.length() < 6) {
-                            mPassword.setError("Password MUST be >= 6");
-                            return;
-                        }
-                        progressBar.setVisibility(View.VISIBLE);
-
-                        //Authenticate
-                        fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(MainActivity.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(), Home.class));
-                                } else {
-                                    Toast.makeText(MainActivity.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-
-                            }
-                        });
-
-
-                    }
-                });
+                startActivity(new Intent(getApplicationContext(),Register.class));
             }
-        });
+        });*/
     }
 }
