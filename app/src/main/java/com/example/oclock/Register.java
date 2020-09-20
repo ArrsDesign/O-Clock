@@ -50,9 +50,7 @@ public class Register extends AppCompatActivity {
         mSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Register.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+
             }
         });
 
@@ -82,19 +80,18 @@ public class Register extends AppCompatActivity {
         }
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
-        progressDialog.setCanceledOnTouchOutside(false);
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(Register.this, "Successfully Registered", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Register.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Register.this, Home.class);
                     startActivity(intent);
                     finish();
                 }
                 else{
-                    Toast.makeText(Register.this, "Registration Failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Register.this, "Log In Failed", Toast.LENGTH_LONG).show();
                 }
                 progressDialog.dismiss();
 
