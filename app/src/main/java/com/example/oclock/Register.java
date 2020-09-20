@@ -50,7 +50,6 @@ public class Register extends AppCompatActivity {
         mSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Register.this, "Successfully Registered", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(Register.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -84,6 +83,7 @@ public class Register extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
         progressDialog.setCanceledOnTouchOutside(false);
+
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

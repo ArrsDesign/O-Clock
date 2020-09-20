@@ -20,34 +20,33 @@ package com.example.oclock;
         import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText mEmail, mPassword;
-    private Button mLogIn;
-    private TextView mRegister;
-    private ProgressDialog progressDialog;
-    private FirebaseAuth mAuth;
+    private EditText mEmailLG, mPasswordLG;
+    private Button mLogInLG;
+    private TextView mRegisterLG;
+    private ProgressDialog progressDialogLG;
+    private FirebaseAuth mAuthLG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mEmail = findViewById(R.id.emailLogIn);
-        mPassword = findViewById(R.id.passwordLogIn);
-        mLogIn = findViewById(R.id.logInBtn);
-        mRegister = findViewById(R.id.registerLink);
-        progressDialog = new ProgressDialog(this);
-        mAuth = FirebaseAuth.getInstance();
+        mEmailLG = findViewById(R.id.emailLogIn);
+        mPasswordLG = findViewById(R.id.passwordLogIn);
+        mLogInLG = findViewById(R.id.logInBtn);
+        mRegisterLG = findViewById(R.id.registerLink);
+        progressDialogLG = new ProgressDialog(this);
+        mAuthLG = FirebaseAuth.getInstance();
 
-        mLogIn.setOnClickListener(new View.OnClickListener() {
+        mLogInLG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Login();
 
             }
         });
-        mRegister.setOnClickListener(new View.OnClickListener() {
+        mRegisterLG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Successfully Registered", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(MainActivity.this, Register.class);
                 startActivity(intent);
                 finish();
@@ -55,21 +54,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void Login(){
-        String email = mEmail.getText().toString();
-        String password = mPassword.getText().toString();
+        String email = mEmailLG.getText().toString();
+        String password = mPasswordLG.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmail.setError("Enter your Email");
+            mEmailLG.setError("Enter your Email");
             return;
         } else if (TextUtils.isEmpty(password)) {
-            mPassword.setError("Enter your Password");
+            mPasswordLG.setError("Enter your Password");
             return;
         }
 
-        progressDialog.setMessage("Please wait...");
-        progressDialog.show();
-        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialogLG.setMessage("Please wait...");
+        progressDialogLG.show();
+        progressDialogLG.setCanceledOnTouchOutside(false);
 
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuthLG.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
@@ -81,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(MainActivity.this, "Log In Failed", Toast.LENGTH_LONG).show();
                 }
-                progressDialog.dismiss();
+                progressDialogLG.dismiss();
 
             }
         });
