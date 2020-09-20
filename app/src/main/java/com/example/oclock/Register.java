@@ -78,10 +78,14 @@ public class Register extends AppCompatActivity {
             mEmail.setError("Invalid Email");
             return;
         }
+<<<<<<< HEAD
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+=======
+        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+>>>>>>> parent of 2b2e548... Log In
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
@@ -96,7 +100,7 @@ public class Register extends AppCompatActivity {
                 progressDialog.dismiss();
 
             }
-        });
+        })
     }
     private Boolean isValidEmail(CharSequence target){
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());

@@ -1,5 +1,6 @@
 package com.example.oclock;
 
+<<<<<<< HEAD
         import androidx.annotation.NonNull;
         import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,10 +27,27 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialogLG;
     private FirebaseAuth mAuthLG;
 
+=======
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+public class MainActivity extends AppCompatActivity {
+    private EditText email,password;
+    private Button logInButton;
+    private TextView signInLink;
+    private FirebaseAuth firebaseAuth;
+>>>>>>> parent of 2b2e548... Log In
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+<<<<<<< HEAD
         mEmailLG = findViewById(R.id.emailLogIn);
         mPasswordLG = findViewById(R.id.passwordLogIn);
         mLogInLG = findViewById(R.id.logInBtn);
@@ -84,5 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+=======
+>>>>>>> parent of 2b2e548... Log In
     }
 }

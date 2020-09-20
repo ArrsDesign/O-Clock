@@ -9,6 +9,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
+=======
+        <activity android:name=".Home"></activity>
+        <activity android:name=".Register" />
+        <activity android:name=".LogIn" />
+>>>>>>> parent of 2b2e548... Log In
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
