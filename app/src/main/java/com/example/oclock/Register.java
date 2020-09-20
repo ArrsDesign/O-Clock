@@ -3,97 +3,105 @@ package com.example.oclock;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class Register extends AppCompatActivity {
-    private EditText mUsername,mEmail,mPassword,mReEnterPassword;
-    Button mRegisterButton;
-    TextView mSignInLink;
-    private FirebaseAuth fAuth;
-    ProgressBar progressBar;
-    private String email;
-    private String password;
+    private EditText mEmail, mPassword, mPasswordAgain;
+    private Button mRegister;
+    private TextView mSignIn;
+    private ProgressDialog progressDialog;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        mEmail = findViewById(R.id.emailRegister);
+        mPassword = findViewById(R.id.passwordRegister);
+        mPasswordAgain = findViewById(R.id.reEnterPassword);
+        mSignIn = findViewById(R.id.signInLink);
+        mRegister = findViewById(R.id.registerBtn);
+        progressDialog = new ProgressDialog(this);
+        mAuth = FirebaseAuth.getInstance();
 
-        mEmail = findViewById(R.id.email);
-        //mUsername = findViewById(R.id.username);
-        mPassword = findViewById(R.id.password);
-        //mReEnterPassword = findViewById(R.id.reEnterPassword);
-        mRegisterButton = findViewById(R.id.registerBtn);
-        mSignInLink = findViewById(R.id.signInLink);
-
-
-        fAuth = FirebaseAuth.getInstance();
-        progressBar = findViewById(R.id.progressBar);
-
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), Profile.class));
-            finish();
-        }
-
-        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+        mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                email = mEmail.getText().toString();
-                password = mPassword.getText().toString();
+            public void onClick(View v) {
+                Register();
 
-                if (email.isEmpty()) {
-                    mEmail.setError("Email is Required");
-                    mEmail.requestFocus();
-                }
-
-                else if (password.length() < 6) {
-                    mPassword.setError("Password MUST be >= 6");
-                    mEmail.requestFocus();
-                }
-                else {
-                    fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            //Account Created
-
-                            if(task.isSuccessful())
-                            {
-                                //Send to different Activity
-                                FirebaseUser user = fAuth.getCurrentUser();
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                finish();
-                            }
-
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            //Account Not Created
-
-                            Toast.makeText(Register.this, "Error", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-
-                }
+            }
+        });
+        mSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Register.this, "Successfully Registered", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Register.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
+    }
+    private void Register() {
+        String email = mEmail.getText().toString();
+        String password = mPassword.getText().toString();
+        String password2 = mPasswordAgain.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            mEmail.setError("Enter your Email");
+            return;
+        } else if (TextUtils.isEmpty(password)) {
+            mPassword.setError("Enter your Password");
+            return;
+        } else if (TextUtils.isEmpty(password2)) {
+            mPasswordAgain.setError("Confirm your Password");
+            return;
+        } else if (!password.equals(password2)) {
+            mPasswordAgain.setError("Different Password");
+            return;
+        } else if (password.length() < 6) {
+            mPasswordAgain.setError("Length should be greater than 6 Characters");
+            return;
+        } else if (!isValidEmail(email)) {
+            mEmail.setError("Invalid Email");
+            return;
+        }
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
+        progressDialog.setCanceledOnTouchOutside(false);
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(Register.this, "Successfully Registered", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Register.this, Home.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else{
+                    Toast.makeText(Register.this, "Registration Failed", Toast.LENGTH_LONG).show();
+                }
+                progressDialog.dismiss();
+
+            }
+        });
+    }
+    private Boolean isValidEmail(CharSequence target){
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 }

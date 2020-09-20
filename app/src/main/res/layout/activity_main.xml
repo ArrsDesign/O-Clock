@@ -38,7 +38,7 @@
 
         <!--Email Entry-->
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/emailLogIn"
             android:textSize="14dp"
             android:textStyle="bold"
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
             android:textColor="@color/titles"/>
         <!--Password Entry-->
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/passwordLogIn"
             android:textSize="14dp"
             android:textStyle="bold"
             android:layout_width="match_parent"

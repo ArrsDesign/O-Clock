@@ -76,7 +76,7 @@
 
                 <!--Reset Password Button-->
                 <Button
-                    android:id="@+id/resetPassword"
+                    android:id="@+id/resetPasswordBtn"
                     android:layout_width="230dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
@@ -156,7 +156,7 @@
                 android:textSize="20dp"
                 android:gravity="center"/>
 
-            <!--Log Out Button-->
+            <!--Log Out Button
             <Button
                 android:id="@+id/logOutButton"
                 android:layout_width="match_parent"
@@ -167,7 +167,7 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 android:textSize="20dp"
-                android:textColor="#ffffff"/>
+                android:textColor="#ffffff"/>-->
 
         </LinearLayout>
   <!--  </ScrollView> -->

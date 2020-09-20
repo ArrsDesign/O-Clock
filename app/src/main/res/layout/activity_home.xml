@@ -37,6 +37,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp">
             </CalendarView>
+            <!--Registration Button-->
+            <Button
+                android:id="@+id/LogOutBtn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/rounded_rectangle"
+                android:text="Register"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="#ffffff"/>
 
         </LinearLayout>
 

@@ -11,14 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Register_Test"></activity>
+        <activity android:name=".Task_Creation"></activity>
+        <activity android:name=".Tasks" />
         <activity android:name=".Profile" />
         <activity android:name=".Home" />
-        <activity android:name=".Register" />
+        <activity android:name=".Register"
+            android:label="@string/label_emailpassword"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
+                <data
+                    android:host="your-project-id.firebaseapp.com"
+                    android:scheme="https" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
