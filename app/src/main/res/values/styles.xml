@@ -1,10 +1,9 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="background">@color/background</item>
-        <item name="title">@color/titles</item>
-        <item name="buttonStyle">@color/buttons</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/buttons</item>
+        <item name="colorPrimaryDark">@color/buttons</item>
+        <item name="colorAccent">@color/buttons</item>
     </style>
 
 </resources>

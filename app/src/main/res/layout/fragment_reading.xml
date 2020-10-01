@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Reading"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/taskNameR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Task Name"
+                android:textColor="@color/text_bottom"
+                android:textColorHint="@color/links"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_marginTop="20dp"/>
+
+            <!--Sub task Selection-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="START"
+                    android:textColor="@color/titles"
+                    android:textSize="15dp"/>
+
+                <TextView
+                    android:id="@+id/editTextDateStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="MM/DD/YYYY"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/text_bottom"
+                    android:textColorHint="@color/links"
+                    android:textSize="15dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginRight="10dp"
+                    android:text="END"
+                    android:textColor="@color/titles"
+                    android:textSize="15dp"/>
+
+                <TextView
+                    android:id="@+id/editTextDateEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="MM/DD/YYYY"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/text_bottom"
+                    android:textColorHint="@color/links"
+                    android:textSize="15dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/difficultyTitle"
+                    android:layout_marginRight="10dp"
+                    android:text="DIFFICULTY"
+                    android:layout_alignParentStart="true"
+                    android:textColor="@color/titles"
+                    android:textSize="15dp"/>
+
+                <!--Difficulty Selection-->
+
+                <SeekBar
+                    android:id="@+id/difficultySelectionR"
+                    android:layout_toEndOf="@+id/difficultyTitle"
+                    android:layout_width="match_parent"
+                    android:layout_toStartOf="@+id/selectedDifficultyR"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:indeterminate="false"
+                    android:max="10"
+                    android:progress="0"
+                    android:progressTint="@color/buttons"
+                    android:scrollbarAlwaysDrawHorizontalTrack="true"
+                    android:thumbTint="@color/titles" />
+
+                <TextView
+                    android:id="@+id/selectedDifficultyR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_toStartOf="@+id/info"
+                    android:text="0/10"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/text_bottom"
+                    android:textSize="15dp" />
+
+                <ImageView
+                    android:id="@+id/info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_info_24"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="PAGES"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/titles"
+                    android:textSize="15dp"/>
+
+                <!--Difficulty Selection-->
+
+                <EditText
+                    android:id="@+id/numberOfPagesR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/infoPages"
+                    android:layout_centerVertical="true"
+                    android:hint="# of Sub Tasks"
+                    android:textColor="@color/text_bottom"
+                    android:textSize="15dp"/>
+
+                <ImageView
+                    android:id="@+id/infoPages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_baseline_info_24" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="SUB TASKS"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:textColor="@color/titles"
+                    android:textSize="15dp"/>
+
+                <!--Difficulty Selection-->
+
+                <EditText
+                    android:id="@+id/numberOfSubTasksR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/infoSubTasks"
+                    android:layout_centerVertical="true"
+                    android:hint="# of Sub Tasks"
+                    android:textColor="@color/text_bottom"
+                    android:textSize="15dp"/>
+
+                <ImageView
+                    android:id="@+id/infoSubTasks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_baseline_info_24"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+
+            <!--Deadline Title-->
+
+            <RelativeLayout
+                android:id="@+id/readingTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/est"
+                    android:text="EST. DURATION"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:textColor="@color/titles"
+                    android:textSize="15dp"
+                    android:layout_marginRight="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toEndOf="@+id/est"
+                    android:layout_toStartOf="@+id/infoDuration"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/timeInMinutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/text_bottom"
+                        android:textSize="15dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" min "
+                        android:textColor="@color/text_bottom"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/ "
+                        android:textColor="@color/text_bottom"
+                        android:textSize="15dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/timeInHours"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/text_bottom"
+                        android:textSize="15dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" hrs "
+                        android:textColor="@color/text_bottom"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/ "
+                        android:textColor="@color/text_bottom"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/timeInDays"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/text_bottom"
+                        android:textSize="15dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" days "
+                        android:textColor="@color/text_bottom"
+                        android:layout_marginRight="10dp"
+                        android:textSize="15dp" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/infoDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_info_24"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+            <!--Create Task Button-->
+            <Button
+                android:id="@+id/createTaskBtnR"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/rounded_rectangle"
+                android:layout_gravity="center"
+                android:text="Create Task"
+                android:textColor="@color/titles"
+                android:textSize="20dp"/>
+
+        </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reading"
+        android:text="Reading Speed"
+        android:visibility="invisible"
+        android:textColor="@color/text_bottom"
+        android:textSize="15dp" />
+
+
+</RelativeLayout>

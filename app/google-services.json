@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "52728654569",
-    "firebase_url": "https://oclock-1633a.firebaseio.com",
-    "project_id": "oclock-1633a",
-    "storage_bucket": "oclock-1633a.appspot.com"
+    "project_number": "428128535850",
+    "firebase_url": "https://oclock-fd22a.firebaseio.com",
+    "project_id": "oclock-fd22a",
+    "storage_bucket": "oclock-fd22a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:52728654569:android:377a2aaadca0232c2d9e78",
+        "mobilesdk_app_id": "1:428128535850:android:7e2d304bd42296813b4a53",
         "android_client_info": {
-          "package_name": "com.example.oclock"
+          "package_name": "com.arrsdesign.oclock"
         }
       },
       "oauth_client": [
         {
-          "client_id": "52728654569-069hqo2lie90bvifb78sklsbbm3avnvd.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.oclock",
-            "certificate_hash": "878bb1b0db2012dc2fb6df866ac9c43923231c7d"
-          }
-        },
-        {
-          "client_id": "52728654569-k60r2kn4dfk0rnnlc1lm0u64a6t774vq.apps.googleusercontent.com",
+          "client_id": "428128535850-t6teii9ru0rr908k22utu846pmvo62pk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyALCcLHbz9B3cznOze_TdO_e4x9lcAXo5M"
+          "current_key": "AIzaSyCcRfF_Yyyvdr8LfFBMNJeDiTH1QD3QVOM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "52728654569-k60r2kn4dfk0rnnlc1lm0u64a6t774vq.apps.googleusercontent.com",
+              "client_id": "428128535850-t6teii9ru0rr908k22utu846pmvo62pk.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

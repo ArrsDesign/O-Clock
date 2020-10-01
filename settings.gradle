@@ -1,2 +1,3 @@
+include ':materials'
 include ':app'
-rootProject.name = "O'Clock"
+rootProject.name = "OClock"
