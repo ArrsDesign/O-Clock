@@ -16,7 +16,7 @@ class TasCard {
         //Empty Constructor Needed
     }
 
-    public TasCard(String title, String deadline, String start, String daysLeft, String difficulty, String pages, String subTask, String min, String hrs, String days) {
+    public TasCard(String title, String deadline, String start, String difficulty, String pages, String subTask, String min, String hrs, String days) {
         this.title = title;
         this.deadline = deadline;
         this.start = start;

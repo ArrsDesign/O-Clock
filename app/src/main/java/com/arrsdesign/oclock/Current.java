@@ -1,6 +1,7 @@
 package com.arrsdesign.oclock;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -43,14 +44,30 @@ public class Current extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_current, container, false);
-        Query query = currentTaskRef.orderBy("deadline", Query.Direction.ASCENDING);
-        FirestoreRecyclerOptions<TasCard> options = new FirestoreRecyclerOptions.Builder<TasCard>().setQuery(query, TasCard.class).build();
-        adapter = new CurrentTask(options);
+
+        Context context = getActivity();
         recyclerView = view.findViewById(R.id.recyclerC);
-        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        Query query = currentTaskRef;
+        FirestoreRecyclerOptions<TasCard> options =
+                new FirestoreRecyclerOptions.Builder<TasCard>().setQuery(query, TasCard.class).build();
+
+        adapter = new CurrentTask(options);
         recyclerView.setAdapter(adapter);
+
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
 }
