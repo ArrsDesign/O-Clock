@@ -40,7 +40,6 @@ public class Current extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference currentTaskRef = db.collection("Current Task");
     RecyclerView recyclerView;
-    private CurrentTask adapter;
 
     public Current() {
     }
@@ -73,29 +72,11 @@ public class Current extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerC);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        FirestoreRecyclerOptions<TasCard> options =
-                new FirestoreRecyclerOptions.Builder<TasCard>()
-                .setQuery(FirebaseFirestore.getInstance().collection("Current Task"), TasCard.class)
-                .build();
-
-        adapter = new CurrentTask(options);
-        recyclerView.setAdapter(adapter);
 
 
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
 }
 
 
