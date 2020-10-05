@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,14 +31,37 @@ import java.util.ArrayList;
 
 public class Current extends Fragment {
 
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    private String mParam1;
+    private String mParam2;
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference currentTaskRef = db.collection("Current Task");
-    private RecyclerView recyclerView;
+    RecyclerView recyclerView;
     private CurrentTask adapter;
 
     public Current() {
     }
 
+    public static Current newInstance(String param1, String param2) {
+        Current fragment = new Current();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,12 +73,14 @@ public class Current extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerC);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Query query = currentTaskRef;
         FirestoreRecyclerOptions<TasCard> options =
-                new FirestoreRecyclerOptions.Builder<TasCard>().setQuery(query, TasCard.class).build();
+                new FirestoreRecyclerOptions.Builder<TasCard>()
+                .setQuery(FirebaseFirestore.getInstance().collection("Current Task"), TasCard.class)
+                .build();
 
         adapter = new CurrentTask(options);
         recyclerView.setAdapter(adapter);
+
 
         return view;
     }
@@ -71,3 +97,7 @@ public class Current extends Fragment {
         adapter.stopListening();
     }
 }
+
+
+
+

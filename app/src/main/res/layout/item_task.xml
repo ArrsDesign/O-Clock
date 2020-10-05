@@ -20,20 +20,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/progressDisplay"/>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/taskSavedName"
                 android:textColor="@color/titles"
-                android:layout_toEndOf="@+id/progressDisplay"
+                android:layout_alignParentStart="true"
                 android:textSize="20dp"
                 android:layout_toStartOf="@+id/daysLeft"
                 android:text="Title of Task"
@@ -42,7 +34,6 @@
                 android:id="@+id/start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/progressDisplay"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/taskSavedName"
                 android:layout_marginRight="10dp"
@@ -92,8 +83,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Days Left"
-                android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
                 android:layout_alignParentEnd="true"
                 android:textColor="@color/buttons"
                 android:textSize="15dp"
@@ -102,7 +93,7 @@
         </RelativeLayout>
 
 
-        <RelativeLayout
+        <!--<RelativeLayout
             android:id="@+id/expandableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -273,7 +264,7 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </RelativeLayout>-->
 
     </LinearLayout>
 
