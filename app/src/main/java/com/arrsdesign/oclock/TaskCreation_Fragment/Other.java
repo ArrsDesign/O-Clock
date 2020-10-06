@@ -1,4 +1,4 @@
-package com.arrsdesign.oclock;
+package com.arrsdesign.oclock.TaskCreation_Fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -19,6 +19,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arrsdesign.oclock.R;
+import com.arrsdesign.oclock.Task2;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;

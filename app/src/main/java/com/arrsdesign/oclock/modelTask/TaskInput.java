@@ -1,4 +1,4 @@
-package com.arrsdesign.oclock;
+package com.arrsdesign.oclock.modelTask;
 
 import android.widget.ProgressBar;
 
@@ -14,6 +14,7 @@ public class TaskInput {
     String timeInMinutes;
     String timeInHours;
     String timeInDays;
+    private boolean expanded;
 
 
     public TaskInput() {
@@ -113,5 +114,13 @@ public class TaskInput {
 
     public void setTimeInDays(String timeInDays) {
         this.timeInDays = timeInDays;
+    }
+
+    public boolean isExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
     }
 }

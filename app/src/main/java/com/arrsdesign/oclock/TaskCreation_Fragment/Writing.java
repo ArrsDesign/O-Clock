@@ -1,4 +1,4 @@
-package com.arrsdesign.oclock;
+package com.arrsdesign.oclock.TaskCreation_Fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -6,9 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -22,73 +19,57 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arrsdesign.oclock.R;
+import com.arrsdesign.oclock.Task2;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 import static com.arrsdesign.oclock.Register.TAG;
 
-public class Reading extends Fragment {
-    Button createTask;
-    EditText taskName, pages, subTask;
-    TextView selectedDifficulty, dateStart, dateEnd, minute, hour, day;
-    SeekBar difficulty;
-    DatePickerDialog.OnDateSetListener dateSetListenerStart;
-    DatePickerDialog.OnDateSetListener dateSetListenerEnd;
-    Integer number = new Random().nextInt();
-    String key = Integer.toString(number);
-    DatabaseReference reference;
+public class Writing extends Fragment {
+    private Button createTask;
+    private EditText taskName, pages, subTask;
+    private TextView selectedDifficulty, dateStart, dateEnd;
+    private SeekBar difficulty;
+    private Integer number = new Random().nextInt();
+    private DatePickerDialog.OnDateSetListener dateSetListenerStart;
+    private DatePickerDialog.OnDateSetListener dateSetListenerEnd;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore mStore;
+    String userID;
 
 
-    public Reading() {
+    public Writing() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_reading, container, false);
+        View view = inflater.inflate(R.layout.fragment_writing, container, false);
 
-        //Task Title
+        createTask = view.findViewById(R.id.createTaskBtnR);
         taskName = view.findViewById(R.id.taskNameR);
-
-        //Date Selection
         dateStart = view.findViewById(R.id.editTextDateStart);
         dateEnd = view.findViewById(R.id.editTextDateEnd);
-
-        //Pages and Sub
         pages = view.findViewById(R.id.numberOfPagesR);
         subTask = view.findViewById(R.id.numberOfSubTasksR);
-
-        //Difficulty
         difficulty = view.findViewById(R.id.difficultySelectionR);
         selectedDifficulty = view.findViewById(R.id.selectedDifficultyR);
+        mAuth = FirebaseAuth.getInstance();
+        mStore = FirebaseFirestore.getInstance();
 
-        //Time Calculation
-        minute = view.findViewById(R.id.numberOfPagesR);
-        hour = view.findViewById(R.id.numberOfPagesR);
-        day = view.findViewById(R.id.numberOfPagesR);
-
-
-
-        //Button
-        createTask = view.findViewById(R.id.createTaskBtnR);
-
-
-        //Start Date Selection
+        //Deadline Selection
         dateStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +78,7 @@ public class Reading extends Fragment {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListenerStart, year, month, day);
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListenerStart, year,month,day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
@@ -114,7 +95,6 @@ public class Reading extends Fragment {
 
             }
         };
-
         //Deadline Selection
         dateEnd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +104,7 @@ public class Reading extends Fragment {
                 int month2 = calendar.get(Calendar.MONTH);
                 int day2 = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListenerEnd, year2, month2, day2);
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListenerEnd, year2,month2,day2);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
@@ -163,33 +143,38 @@ public class Reading extends Fragment {
         createTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Insert data to database
-                reference = FirebaseDatabase.getInstance().getReference().child("OClock").child("Current Task" + number);
-                reference.addValueEventListener(new ValueEventListener() {
+
+                //Get All Values from text Fields
+                String title = taskName.getText().toString();
+                String startDate = dateStart.getText().toString();
+                String endDate = dateEnd.getText().toString();
+                String difficulty = selectedDifficulty.getText().toString();
+                String numberPages = pages.getText().toString();
+                String numberSubTasks = subTask.getText().toString();
+                //String estMin = taskName.getText().toString();
+                //String estHrs = taskName.getText().toString();
+                //String estDays = taskName.getText().toString();
+
+                Toast.makeText(getContext(), "Task Created", Toast.LENGTH_LONG).show();
+                userID = mAuth.getCurrentUser().getUid();
+                DocumentReference documentReference = mStore.collection("Current Tasks").document(String.valueOf(String.valueOf(number)));
+                Map<String, Object> user = new HashMap<>();
+                user.put("Task Title", title);
+                user.put("Start Data", startDate);
+                user.put("End Data", endDate);
+                user.put("Difficulty", difficulty);
+                user.put("Number of Pages", numberPages);
+                user.put("Number of Sub Tasks", numberSubTasks);
+
+                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        snapshot.getRef().child("titleTask").setValue(taskName.getText().toString());
-                        snapshot.getRef().child("startDate").setValue(dateStart.getText().toString());
-                        snapshot.getRef().child("endDate").setValue(dateEnd.getText().toString());
-                        snapshot.getRef().child("difficultyNumber").setValue(selectedDifficulty.getText().toString());
-                        snapshot.getRef().child("numberPages").setValue(pages.getText().toString());
-                        snapshot.getRef().child("numberSub").setValue(subTask.getText().toString());
-                        snapshot.getRef().child("timeInMinutes").setValue(dateEnd.getText().toString());
-                        snapshot.getRef().child("timeInHours").setValue(dateEnd.getText().toString());
-                        snapshot.getRef().child("timeInDays").setValue(dateEnd.getText().toString());
-
-                        snapshot.getRef().child("key").setValue(key);
-
-                        Intent a = new Intent(getContext(), Task2.class);
-                        startActivity(a);
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "On Success: current task is created for " + userID);
                     }
                 });
+
+                Intent taskCreation = new Intent(getActivity(), Task2.class);
+                startActivity(taskCreation);
             }
         });
 

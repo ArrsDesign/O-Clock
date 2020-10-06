@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.arrsdesign.oclock.Other;
+import com.arrsdesign.oclock.TaskCreation_Fragment.Other;
 import com.arrsdesign.oclock.R;
-import com.arrsdesign.oclock.Reading;
-import com.arrsdesign.oclock.Writing;
+import com.arrsdesign.oclock.TaskCreation_Fragment.Reading;
+import com.arrsdesign.oclock.TaskCreation_Fragment.Writing;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

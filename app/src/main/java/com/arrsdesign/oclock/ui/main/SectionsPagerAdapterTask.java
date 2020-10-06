@@ -8,13 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.arrsdesign.oclock.Completed;
-import com.arrsdesign.oclock.Current;
-import com.arrsdesign.oclock.Future;
-import com.arrsdesign.oclock.Other;
+import com.arrsdesign.oclock.Task2_Fragments.Completed;
+import com.arrsdesign.oclock.Task2_Fragments.Current;
+import com.arrsdesign.oclock.Task2_Fragments.Future;
 import com.arrsdesign.oclock.R;
-import com.arrsdesign.oclock.Reading;
-import com.arrsdesign.oclock.Writing;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
