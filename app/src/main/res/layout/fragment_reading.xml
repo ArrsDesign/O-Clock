@@ -327,13 +327,13 @@
         </LinearLayout>
 
     <TextView
+        android:id="@+id/reading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/reading"
         android:text="Reading Speed"
-        android:visibility="invisible"
         android:textColor="@color/text_bottom"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

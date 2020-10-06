@@ -43,17 +43,15 @@ import java.util.Random;
 import static com.arrsdesign.oclock.Register.TAG;
 
 public class Reading extends Fragment {
-    private Button createTask;
-    private EditText taskName, pages, subTask;
-    private TextView selectedDifficulty, dateStart, dateEnd, reading;
-    private SeekBar difficulty;
-    private DatePickerDialog.OnDateSetListener dateSetListenerStart;
-    private DatePickerDialog.OnDateSetListener dateSetListenerEnd;
-    private Integer number = new Random().nextInt();
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore mStore;
-    String userID;
-    private Object time;
+    Button createTask;
+    EditText taskName, pages, subTask;
+    TextView selectedDifficulty, dateStart, dateEnd, minute, hour, day;
+    SeekBar difficulty;
+    DatePickerDialog.OnDateSetListener dateSetListenerStart;
+    DatePickerDialog.OnDateSetListener dateSetListenerEnd;
+    Integer number = new Random().nextInt();
+    String key = Integer.toString(number);
+    DatabaseReference reference;
 
 
     public Reading() {
@@ -64,19 +62,33 @@ public class Reading extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_reading, container, false);
 
-        createTask = view.findViewById(R.id.createTaskBtnR);
+        //Task Title
         taskName = view.findViewById(R.id.taskNameR);
+
+        //Date Selection
         dateStart = view.findViewById(R.id.editTextDateStart);
         dateEnd = view.findViewById(R.id.editTextDateEnd);
+
+        //Pages and Sub
         pages = view.findViewById(R.id.numberOfPagesR);
         subTask = view.findViewById(R.id.numberOfSubTasksR);
+
+        //Difficulty
         difficulty = view.findViewById(R.id.difficultySelectionR);
         selectedDifficulty = view.findViewById(R.id.selectedDifficultyR);
-        mAuth = FirebaseAuth.getInstance();
-        mStore = FirebaseFirestore.getInstance();
-        reading = view.findViewById(R.id.reading);
 
-        //Deadline Selection
+        //Time Calculation
+        minute = view.findViewById(R.id.numberOfPagesR);
+        hour = view.findViewById(R.id.numberOfPagesR);
+        day = view.findViewById(R.id.numberOfPagesR);
+
+
+
+        //Button
+        createTask = view.findViewById(R.id.createTaskBtnR);
+
+
+        //Start Date Selection
         dateStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +114,7 @@ public class Reading extends Fragment {
 
             }
         };
+
         //Deadline Selection
         dateEnd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +157,39 @@ public class Reading extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
+            }
+        });
+
+        createTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Insert data to database
+                reference = FirebaseDatabase.getInstance().getReference().child("OClock").child("Current Task" + number);
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        snapshot.getRef().child("titleTask").setValue(taskName.getText().toString());
+                        snapshot.getRef().child("startDate").setValue(dateStart.getText().toString());
+                        snapshot.getRef().child("endDate").setValue(dateEnd.getText().toString());
+                        snapshot.getRef().child("difficultyNumber").setValue(selectedDifficulty.getText().toString());
+                        snapshot.getRef().child("numberPages").setValue(pages.getText().toString());
+                        snapshot.getRef().child("numberSub").setValue(subTask.getText().toString());
+                        snapshot.getRef().child("timeInMinutes").setValue(dateEnd.getText().toString());
+                        snapshot.getRef().child("timeInHours").setValue(dateEnd.getText().toString());
+                        snapshot.getRef().child("timeInDays").setValue(dateEnd.getText().toString());
+
+                        snapshot.getRef().child("key").setValue(key);
+
+                        Intent a = new Intent(getContext(), Task2.class);
+                        startActivity(a);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 

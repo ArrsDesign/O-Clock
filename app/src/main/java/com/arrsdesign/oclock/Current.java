@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,56 +29,59 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class Current extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference currentTaskRef = db.collection("Current Task");
+    DatabaseReference reference;
     RecyclerView recyclerView;
+    ArrayList<TaskInput> list;
+    AdapterC adapterC;
+
 
     public Current() {
     }
 
-    public static Current newInstance(String param1, String param2) {
-        Current fragment = new Current();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_current, container, false);
 
-        Context context = getActivity();
+        //Working with data
         recyclerView = view.findViewById(R.id.recyclerC);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        list = new ArrayList<TaskInput>();
+
+        //Get Firebase Data
+        reference = FirebaseDatabase.getInstance().getReference().child("OClock");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //retrieve data
+                for (DataSnapshot snapshot1: snapshot.getChildren()){
+                    TaskInput p = snapshot1.getValue(TaskInput.class);
+                    list.add(p);
+                }
+                adapterC = new AdapterC(getContext(), list);
+                recyclerView.setAdapter(adapterC);
+                adapterC.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //error code
+                Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
 
 
+            }
+        });
 
         return view;
     }
-
 }
 
 
