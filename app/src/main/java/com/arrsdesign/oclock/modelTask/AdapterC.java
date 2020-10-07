@@ -9,11 +9,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arrsdesign.oclock.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
 
@@ -59,6 +61,30 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
 
         final String key = taskInputs.get(position).getKey();
 
+        //Initialize nested Recycler View
+        List<SubTaskModel> list = new ArrayList<>();
+        SubTaskModel task = new SubTaskModel();
+        task.setTask("This is a Test");
+        task.setStatus(0);
+        task.setId(1);
+
+        list.add(task);
+        list.add(task);
+        list.add(task);
+        list.add(task);
+        list.add(task);
+
+        //Initialize Adapter
+        SubAdapter subAdapter = new SubAdapter((ArrayList<SubTaskModel>) list);
+        LinearLayoutManager subLayoutManager = new LinearLayoutManager(context);
+        //Layout Manager
+        holder.subRecycler.setLayoutManager(subLayoutManager);
+        //set adapter
+        holder.subRecycler.setAdapter(subAdapter);
+
+
+
+
 
     }
 
@@ -71,7 +97,9 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
 
         TextView titleTask, startDate, endDate, key, difficultyNumber, numberPages, numberSub, timeInMinutes, timeInHours, timeInDays;
         LinearLayout linearLayout;
+        RecyclerView subRecycler;
         RelativeLayout expandableLayout;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,7 +113,7 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
             timeInHours = itemView.findViewById(R.id.timeInHours);
             timeInDays = itemView.findViewById(R.id.timeInDays);
 
-
+            subRecycler = itemView.findViewById(R.id.subTaskRecycler);
 
             linearLayout = itemView.findViewById(R.id.linear);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);

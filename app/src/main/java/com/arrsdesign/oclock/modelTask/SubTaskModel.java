@@ -1,4 +1,4 @@
-package com.arrsdesign.oclock.modelSubTask;
+package com.arrsdesign.oclock.modelTask;
 
 class SubTaskModel {
 
