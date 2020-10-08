@@ -1,5 +1,6 @@
 package com.arrsdesign.oclock.modelTask;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,10 @@ public class SubAdapter extends RecyclerView.Adapter<SubAdapter.ViewHolder> {
 
     private List<SubTaskModel> subTaskList;
 
-    public SubAdapter(ArrayList<SubTaskModel> subTaskList){
+    public SubAdapter(AdapterC subTaskList){
         this.subTaskList = subTaskList;
     }
+
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.subtask_layout, parent, false);

@@ -1,6 +1,8 @@
 package com.arrsdesign.oclock.modelTask;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arrsdesign.oclock.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
+public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> implements DialogCloseListener{
 
     Context context;
     ArrayList<TaskInput> taskInputs;
+    SubAdapter subAdapter;
+    private DatabaseHandler db;
+    List<SubTaskModel> list;
+    Activity activity;
+
 
     public AdapterC(Context c, ArrayList<TaskInput> p) {
         context = c;
@@ -61,26 +69,28 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
 
         final String key = taskInputs.get(position).getKey();
 
-        //Initialize nested Recycler View
-        List<SubTaskModel> list = new ArrayList<>();
-        SubTaskModel task = new SubTaskModel();
-        task.setTask("This is a Test");
-        task.setStatus(0);
-        task.setId(1);
+        db = new DatabaseHandler(context);
+        db.openDatabase();
 
-        list.add(task);
-        list.add(task);
-        list.add(task);
-        list.add(task);
-        list.add(task);
+
+        //Initialize nested Recycler View
+        list = new ArrayList<SubTaskModel>();
+        SubTaskModel task = new SubTaskModel();
+
+        list = db.getAllTasks();
+        Collections.reverse(list);
 
         //Initialize Adapter
-        SubAdapter subAdapter = new SubAdapter((ArrayList<SubTaskModel>) list);
+        subAdapter = new SubAdapter(this);
         LinearLayoutManager subLayoutManager = new LinearLayoutManager(context);
         //Layout Manager
         holder.subRecycler.setLayoutManager(subLayoutManager);
         //set adapter
         holder.subRecycler.setAdapter(subAdapter);
+
+        list = db.getAllTasks();
+        Collections.reverse(list);
+        subAdapter.setSubTaskList(list);
 
 
 
@@ -129,5 +139,14 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
 
 
         }
+    }
+
+    @Override
+    public void handleDialogClose(DialogInterface dialog) {
+        list = db.getAllTasks();
+        Collections.reverse(list);
+        subAdapter.setSubTaskList(list);
+        subAdapter.notifyDataSetChanged();
+
     }
 }
