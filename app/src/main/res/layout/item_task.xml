@@ -3,13 +3,9 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/rounded_rectangle_white"
-    android:padding="15dp"
+    android:padding="16dp"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:layout_marginRight="5dp"
-    android:layout_marginLeft="5dp"
-    app:cardElevation="4dp"
-    app:cardCornerRadius="30dp"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -40,7 +36,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/titleTask"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="5dp"
                 android:text="Start"
                 android:textColor="@color/text_bottom"
                 android:textSize="15dp"
@@ -104,7 +99,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/progress_circular"
                 android:layout_alignParentStart="true"
-                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="Difficulty"
                 android:textColor="@color/text_bottom"
@@ -166,7 +160,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/progress_circular"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="10dp"
                 android:text="#"
                 android:textColor="@color/links"
                 android:textSize="15dp"/>
@@ -176,7 +169,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
                 android:id="@+id/estimated"
                 android:layout_below="@+id/difficulty"
                 android:text="Estimated Duration"
@@ -259,6 +251,7 @@
 
             </LinearLayout>
 
+<<<<<<< HEAD
             <TextView
                 android:id="@+id/subtasktitle"
                 android:layout_width="wrap_content"
@@ -272,11 +265,13 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/estimated"/>
 
+=======
+>>>>>>> parent of 9f5315d... Edited page Layout
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/subTaskRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/subtasktitle"
+                android:layout_below="@+id/estimated"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:nestedScrollingEnabled="true"/>
 
@@ -285,13 +280,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/subTaskRecycler"
-                android:padding="20dp"
-                android:layout_marginRight="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:background="@color/buttons"
                 android:src="@drawable/ic_add"
-                app:backgroundTint="@color/links"
+                app:backgroundTint="@color/buttons"
                 app:fabSize="mini"
                 app:maxImageSize="20dp" />
 
