@@ -10,14 +10,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.TaskInput;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
@@ -68,6 +66,7 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
 
         final String key = taskInputs.get(position).getKey();
 
+<<<<<<< HEAD:app/src/main/java/com/arrsdesign/oclock/modelSubTask/AdapterC.java
         //Initialize nested Recycler View
         list = new ArrayList<>();
 
@@ -89,6 +88,8 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
         holder.subRecycler.setLayoutManager(subLayoutManager);
         //set adapter
         holder.subRecycler.setAdapter(subAdapter);
+=======
+>>>>>>> parent of fa74ef9... Setting up Nested Recycler:app/src/main/java/com/arrsdesign/oclock/modelTask/AdapterC.java
 
     }
 
@@ -102,7 +103,10 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
         TextView titleTask, startDate, endDate, key, difficultyNumber, numberPages, numberSub, timeInMinutes, timeInHours, timeInDays;
         LinearLayout linearLayout;
         RelativeLayout expandableLayout;
+<<<<<<< HEAD:app/src/main/java/com/arrsdesign/oclock/modelSubTask/AdapterC.java
         RecyclerView subRecycler;
+=======
+>>>>>>> parent of fa74ef9... Setting up Nested Recycler:app/src/main/java/com/arrsdesign/oclock/modelTask/AdapterC.java
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -116,7 +120,7 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
             timeInHours = itemView.findViewById(R.id.timeInHours);
             timeInDays = itemView.findViewById(R.id.timeInDays);
 
-            subRecycler = itemView.findViewById(R.id.subTaskRecycler);
+
 
 
 
