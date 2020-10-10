@@ -20,12 +20,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> implements DialogCloseListener{
+public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
 
     Context context;
     ArrayList<TaskInput> taskInputs;
     SubAdapter subAdapter;
-    private DatabaseHandler db;
     List<SubTaskModel> list;
     Activity activity;
 
@@ -69,16 +68,21 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> implem
 
         final String key = taskInputs.get(position).getKey();
 
-        db = new DatabaseHandler(context);
-        db.openDatabase();
 
 
         //Initialize nested Recycler View
-        list = new ArrayList<SubTaskModel>();
-        SubTaskModel task = new SubTaskModel();
+        list = new ArrayList<>();
 
-        list = db.getAllTasks();
-        Collections.reverse(list);
+        SubTaskModel task = new SubTaskModel();
+        task.setTask(("This is A Test"));
+        task.setStatus(0);
+        task.setId(1);
+
+        list.add(task);
+        list.add(task);
+        list.add(task);
+
+
 
         //Initialize Adapter
         subAdapter = new SubAdapter(this);
@@ -87,10 +91,6 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> implem
         holder.subRecycler.setLayoutManager(subLayoutManager);
         //set adapter
         holder.subRecycler.setAdapter(subAdapter);
-
-        list = db.getAllTasks();
-        Collections.reverse(list);
-        subAdapter.setSubTaskList(list);
 
 
 
@@ -141,12 +141,4 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> implem
         }
     }
 
-    @Override
-    public void handleDialogClose(DialogInterface dialog) {
-        list = db.getAllTasks();
-        Collections.reverse(list);
-        subAdapter.setSubTaskList(list);
-        subAdapter.notifyDataSetChanged();
-
-    }
 }

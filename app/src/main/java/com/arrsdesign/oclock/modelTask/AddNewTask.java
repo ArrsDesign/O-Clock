@@ -26,7 +26,6 @@ public class AddNewTask extends BottomSheetDialogFragment {
 
     private EditText newTaskText;
     private Button newTaskSaveButton;
-    private DatabaseHandler db;
 
     public static  AddNewTask newInstance(){
         return new AddNewTask();
@@ -50,9 +49,6 @@ public class AddNewTask extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
         newTaskText = getView().findViewById(R.id.newTaskText);
         newTaskSaveButton = getView().findViewById(R.id.newSubTaskButton);
-
-        db = new DatabaseHandler(getActivity());
-        db.openDatabase();
 
         boolean isUpdate = false;
         final Bundle bundle = getArguments();
@@ -89,31 +85,8 @@ public class AddNewTask extends BottomSheetDialogFragment {
             }
         });
 
-        final boolean finalIsUpdate = isUpdate;
-        newTaskSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = newTaskText.getText().toString();
-                if (finalIsUpdate){
-                    db.updateTask(bundle.getInt("id"), text);
-                } else {
-                    SubTaskModel task = new SubTaskModel();
-                    task.setTask(text);
-                    task.setStatus(0);
-                }
-                dismiss();
-            }
-        });
     }
 
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        Activity activity = getActivity();
-        if (activity instanceof DialogCloseListener){
-            ((DialogCloseListener)activity).handleDialogClose(dialog);
-        }
-        super.onDismiss(dialog);
-    }
 }
 
 

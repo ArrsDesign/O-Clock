@@ -1,10 +1,13 @@
 package com.arrsdesign.oclock.modelTask;
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,9 +19,10 @@ import java.util.List;
 public class SubAdapter extends RecyclerView.Adapter<SubAdapter.ViewHolder> {
 
     private List<SubTaskModel> subTaskList;
+    AdapterC context;
 
-    public SubAdapter(AdapterC subTaskList){
-        this.subTaskList = subTaskList;
+    public SubAdapter(AdapterC context){
+        this.context = context;
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
@@ -28,9 +32,10 @@ public class SubAdapter extends RecyclerView.Adapter<SubAdapter.ViewHolder> {
     }
 
     public void onBindViewHolder(ViewHolder holder, int position){
-        SubTaskModel item = subTaskList.get(position);
+        final SubTaskModel item = subTaskList.get(position);
         holder.task.setText(item.getTask());
         holder.task.setChecked(toBoolean(item.getStatus()));
+
 
     }
 
@@ -46,6 +51,11 @@ public class SubAdapter extends RecyclerView.Adapter<SubAdapter.ViewHolder> {
         this.subTaskList = list;
         notifyDataSetChanged();
     }
+    public void setTasks(List<SubTaskModel> subTaskList){
+        this.subTaskList = subTaskList;
+    }
+
+
     public static class ViewHolder extends RecyclerView.ViewHolder{
         CheckBox task;
 
