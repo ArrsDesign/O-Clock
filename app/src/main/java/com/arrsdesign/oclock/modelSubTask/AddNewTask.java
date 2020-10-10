@@ -1,7 +1,5 @@
-package com.arrsdesign.oclock.modelTask;
+package com.arrsdesign.oclock.modelSubTask;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;

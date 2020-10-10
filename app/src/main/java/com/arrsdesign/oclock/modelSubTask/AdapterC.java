@@ -1,8 +1,7 @@
-package com.arrsdesign.oclock.modelTask;
+package com.arrsdesign.oclock.modelSubTask;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +14,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arrsdesign.oclock.R;
+import com.arrsdesign.oclock.SubAdapter;
+import com.arrsdesign.oclock.TaskInput;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
 
 public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
 
     Context context;
     ArrayList<TaskInput> taskInputs;
-    SubAdapter subAdapter;
+    com.arrsdesign.oclock.SubAdapter subAdapter;
     List<SubTaskModel> list;
     Activity activity;
 
@@ -68,8 +69,6 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
 
         final String key = taskInputs.get(position).getKey();
 
-
-
         //Initialize nested Recycler View
         list = new ArrayList<>();
 
@@ -92,10 +91,6 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
         //set adapter
         holder.subRecycler.setAdapter(subAdapter);
 
-
-
-
-
     }
 
     @Override
@@ -107,9 +102,8 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
 
         TextView titleTask, startDate, endDate, key, difficultyNumber, numberPages, numberSub, timeInMinutes, timeInHours, timeInDays;
         LinearLayout linearLayout;
-        RecyclerView subRecycler;
         RelativeLayout expandableLayout;
-
+        RecyclerView subRecycler;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -124,6 +118,8 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
             timeInDays = itemView.findViewById(R.id.timeInDays);
 
             subRecycler = itemView.findViewById(R.id.subTaskRecycler);
+
+
 
             linearLayout = itemView.findViewById(R.id.linear);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);

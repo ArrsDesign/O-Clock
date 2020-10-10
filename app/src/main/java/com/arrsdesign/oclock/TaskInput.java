@@ -1,4 +1,4 @@
-package com.arrsdesign.oclock.modelTask;
+package com.arrsdesign.oclock;
 
 import android.widget.ProgressBar;
 
