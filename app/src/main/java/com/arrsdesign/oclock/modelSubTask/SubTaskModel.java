@@ -1,6 +1,6 @@
 package com.arrsdesign.oclock.modelSubTask;
 
-class SubTaskModel {
+public class SubTaskModel {
 
     private int id, status;
     private String task;

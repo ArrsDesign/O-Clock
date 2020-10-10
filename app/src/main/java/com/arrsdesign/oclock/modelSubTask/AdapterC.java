@@ -10,12 +10,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.TaskInput;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
@@ -66,30 +68,26 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
 
         final String key = taskInputs.get(position).getKey();
 
-<<<<<<< HEAD:app/src/main/java/com/arrsdesign/oclock/modelSubTask/AdapterC.java
         //Initialize nested Recycler View
-        list = new ArrayList<>();
-
+        List<SubTaskModel> list = new ArrayList<>();
         SubTaskModel task = new SubTaskModel();
-        task.setTask(("This is A Test"));
+        task.setTask("This is a Test");
         task.setStatus(0);
         task.setId(1);
 
         list.add(task);
         list.add(task);
         list.add(task);
-
-
+        list.add(task);
+        list.add(task);
 
         //Initialize Adapter
-        subAdapter = new SubAdapter(this);
+        SubAdapter subAdapter = new SubAdapter((ArrayList<SubTaskModel>) list);
         LinearLayoutManager subLayoutManager = new LinearLayoutManager(context);
         //Layout Manager
         holder.subRecycler.setLayoutManager(subLayoutManager);
         //set adapter
         holder.subRecycler.setAdapter(subAdapter);
-=======
->>>>>>> parent of fa74ef9... Setting up Nested Recycler:app/src/main/java/com/arrsdesign/oclock/modelTask/AdapterC.java
 
     }
 
@@ -103,10 +101,8 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
         TextView titleTask, startDate, endDate, key, difficultyNumber, numberPages, numberSub, timeInMinutes, timeInHours, timeInDays;
         LinearLayout linearLayout;
         RelativeLayout expandableLayout;
-<<<<<<< HEAD:app/src/main/java/com/arrsdesign/oclock/modelSubTask/AdapterC.java
         RecyclerView subRecycler;
-=======
->>>>>>> parent of fa74ef9... Setting up Nested Recycler:app/src/main/java/com/arrsdesign/oclock/modelTask/AdapterC.java
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -123,6 +119,7 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
 
 
 
+            subRecycler = itemView.findViewById(R.id.subTaskRecycler);
 
             linearLayout = itemView.findViewById(R.id.linear);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
