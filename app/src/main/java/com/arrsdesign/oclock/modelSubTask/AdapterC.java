@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arrsdesign.oclock.R;
-import com.arrsdesign.oclock.SubAdapter;
 import com.arrsdesign.oclock.TaskInput;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder>{
 
     Context context;
     ArrayList<TaskInput> taskInputs;
-    com.arrsdesign.oclock.SubAdapter subAdapter;
+    SubAdapter subAdapter;
     List<SubTaskModel> list;
     Activity activity;
 
