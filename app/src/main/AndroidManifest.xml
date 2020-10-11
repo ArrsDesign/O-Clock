@@ -11,20 +11,19 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".modelSubTask.Task_Display"></activity>
         <activity
             android:name=".Task2"
-            android:label="@string/title_activity_task2"></activity>
+            android:label="@string/title_activity_task2" />
         <activity
             android:name=".Task_Creation2"
-            android:label="@string/title_activity_task__creation2"/>
+            android:label="@string/title_activity_task__creation2" />
         <activity android:name=".MainActivity2" />
         <activity android:name=".SplashScreen" />
-
         <activity
             android:name=".Profile"
             android:label="PROFILE" />
         <activity android:name=".Register" />
-
         <activity android:name=".SignIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

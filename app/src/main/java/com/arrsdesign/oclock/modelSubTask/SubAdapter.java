@@ -31,6 +31,9 @@ public class SubAdapter extends RecyclerView.Adapter<SubAdapter.ViewHolder> {
         holder.task.setText(item.getTask());
         holder.task.setChecked(toBoolean(item.getStatus()));
 
+        final String task = subTaskList.get(position).getTask();
+
+
     }
 
     public int getItemCount(){
@@ -41,10 +44,6 @@ public class SubAdapter extends RecyclerView.Adapter<SubAdapter.ViewHolder> {
         return n!=0;
     }
 
-    public void setSubTaskList(List<SubTaskModel> list){
-        this.subTaskList = list;
-        notifyDataSetChanged();
-    }
     public static class ViewHolder extends RecyclerView.ViewHolder{
         CheckBox task;
 

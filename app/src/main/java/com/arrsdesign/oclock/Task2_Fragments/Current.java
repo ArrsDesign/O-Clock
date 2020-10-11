@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class Current extends Fragment {
 
     DatabaseReference reference;
-    RecyclerView recyclerView, subTaskRecycler;
+    RecyclerView recyclerView;
     ArrayList<TaskInput> list;
     AdapterC adapterC;
 
