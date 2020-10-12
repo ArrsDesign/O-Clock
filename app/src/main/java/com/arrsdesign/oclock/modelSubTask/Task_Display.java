@@ -12,6 +12,7 @@ import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +35,7 @@ public class Task_Display extends AppCompatActivity {
 
     FloatingActionButton fab;
 
-    TextView titleTask, startDate, endDate, difficultyNumber, numberPages, numberSub, timeInMinutes, timeInHours, timeInDays;
+    TextView title, start, end, difficulty, pages, sub, minutes, hours, days;
 
 
     RecyclerView subRecycler;
@@ -45,6 +46,7 @@ public class Task_Display extends AppCompatActivity {
     ArrayList<TaskInput> inputList;
     Context context;
     AdapterC adapterC;
+    LinearLayout layout;
 
     ArrayList<TaskInput> taskInputs;
 
@@ -53,17 +55,18 @@ public class Task_Display extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task__display);
 
-        titleTask = findViewById(R.id.toolbarTitle);
-        startDate = findViewById(R.id.startDate);
-        endDate = findViewById(R.id.endDate);
-        difficultyNumber = findViewById(R.id.difficultyNumber);
-        numberPages = findViewById(R.id.numberPages);
-        numberSub = findViewById(R.id.numberSub);
-        timeInMinutes = findViewById(R.id.timeInMinutes);
-        timeInHours = findViewById(R.id.timeInHours);
-        timeInDays = findViewById(R.id.timeInDays);
+        title = findViewById(R.id.titleTask);
+        start = findViewById(R.id.startDate);
+        end = findViewById(R.id.endDate);
+        difficulty = findViewById(R.id.difficultyNumber);
+        pages = findViewById(R.id.numberPages);
+        sub = findViewById(R.id.numberSub);
+        minutes = findViewById(R.id.timeInMinutes);
+        hours = findViewById(R.id.timeInHours);
+        days = findViewById(R.id.timeInDays);
 
         inputList = new ArrayList<TaskInput>();
+        layout = findViewById(R.id.dataHolder);
 
         subRecycler = findViewById(R.id.subTaskRecycler);
 
@@ -100,31 +103,8 @@ public class Task_Display extends AppCompatActivity {
 
         //Get Firebase Data
         reference = FirebaseDatabase.getInstance().getReference().child("OClock");
-        reference.child("OClock").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
 
-                    String titleTask = snapshot.child("titleTask").getValue().toString();
-                    String startDate = snapshot.child("startDate").getValue().toString();
-                    String endDate = snapshot.child("endDate").getValue().toString();
-                    String difficultyNumber = snapshot.child("difficultyNumber").getValue().toString();
-                    String numberPages = snapshot.child("numberPages").getValue().toString();
-                    String numberSub = snapshot.child("numberSub").getValue().toString();
-                    String timeInMinutes = snapshot.child("timeInMinutes").getValue().toString();
-                    String timeInHours = snapshot.child("timeInHours").getValue().toString();
-                    String timeInDays = snapshot.child("timeInDays").getValue().toString();
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
+        getIncom
 
 
     }
