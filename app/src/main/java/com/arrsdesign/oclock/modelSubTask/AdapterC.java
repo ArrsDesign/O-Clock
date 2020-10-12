@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.Register;
 import com.arrsdesign.oclock.Task2;
+import com.arrsdesign.oclock.Task2_Fragments.Current;
 import com.arrsdesign.oclock.TaskInput;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -77,73 +78,6 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
         final String getStartDate = taskInputs.get(position).getStartDate();
         final String getEndDate = taskInputs.get(position).getEndDate();
 
-        final String key = taskInputs.get(position).getKey();
-
-            holder.edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final DialogPlus dialogPlus = DialogPlus.newDialog(holder.titleTask.getContext())
-                            .setContentHolder(new ViewHolder(R.layout.edit)).setExpanded(true, 1550)
-                            .create();
-
-                    View myView = dialogPlus.getHolderView();
-
-                    final EditText titleTask = myView.findViewById(R.id.taskEdit);
-                    final EditText startDate = myView.findViewById(R.id.startEdit);
-                    final EditText endDate = myView.findViewById(R.id.endEdit);
-                    final EditText difficultyNumber = myView.findViewById(R.id.difficultyEdit);
-                    final EditText numberPages = myView.findViewById(R.id.pagesEdit);
-                    final EditText numberSub = myView.findViewById(R.id.subTaskEdit);
-                    Button save = myView.findViewById(R.id.saveEdit);
-
-
-                    titleTask.setText(taskInputs.get(position).getTitleTask());
-                    startDate.setText(taskInputs.get(position).getStartDate());
-                    endDate.setText(taskInputs.get(position).getEndDate());
-                    difficultyNumber.setText(taskInputs.get(position).getDifficultyNumber());
-                    numberPages.setText(taskInputs.get(position).getNumberPages());
-                    numberSub.setText(taskInputs.get(position).getNumberSub());
-
-                    dialogPlus.show();
-
-                        save.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Map<String, Object> map = new HashMap<>();
-                                map.put("titleTask", titleTask.getText().toString());
-                                map.put("startDate", startDate.getText().toString());
-                                map.put("endDate", endDate.getText().toString());
-                                map.put("difficultyNumber", difficultyNumber.getText().toString());
-                                map.put("numberPages", numberPages.getText().toString());
-                                map.put("numberSub", numberSub.getText().toString());
-
-                                FirebaseDatabase.getInstance().getReference().child("OClock")
-                                        .updateChildren(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        dialogPlus.dismiss();
-
-                                    }
-                                })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                dialogPlus.dismiss();
-
-                                            }
-                                        });
-
-
-                            }
-                        });
-
-
-
-
-                }
-            });
-
-
     }
 
     @Override
@@ -171,9 +105,6 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
 
             edit = itemView.findViewById(R.id.edit);
             delete = itemView.findViewById(R.id.delete);
-
-
-
 
         }
 

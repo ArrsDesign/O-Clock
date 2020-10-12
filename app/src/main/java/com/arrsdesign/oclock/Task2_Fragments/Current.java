@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 public class Current extends Fragment {
 
     DatabaseReference reference;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView, subTaskRecycler;
     ArrayList<TaskInput> list;
     AdapterC adapterC;
 
