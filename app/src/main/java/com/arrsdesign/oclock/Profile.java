@@ -39,7 +39,7 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         ImageView back = findViewById(R.id.backArrow);
-        TextView edit = findViewById(R.id.edit);
+        ImageView task = findViewById(R.id.tasks);
         TextView title = findViewById(R.id.toolbarTitle);
         pEmail=findViewById(R.id.userEmail);
         pUsername=findViewById(R.id.userName);
@@ -58,6 +58,12 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile.this, Task2.class));
+            }
+        });
 
         title.setText("PROFILE");
 

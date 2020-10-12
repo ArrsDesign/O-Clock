@@ -12,24 +12,23 @@
 
 
         <TextView
-            android:id="@+id/hello"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/hello"
             android:text="HELLO,"
             android:textColor="#ffffff"
-            android:textSize="30dp" />
+            android:textSize="25dp"/>
 
         <TextView
-            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/name"
+            android:text="USERNAME"
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@+id/hello"
-            android:text="USERNAME"
-            android:textAllCaps="true"
             android:textColor="#ffffff"
-            android:textSize="30dp"
-            android:textStyle="bold" />
+            android:textSize="25dp"
+            android:textStyle="bold"/>
         <ImageView
             android:id="@+id/profile"
             android:layout_width="wrap_content"

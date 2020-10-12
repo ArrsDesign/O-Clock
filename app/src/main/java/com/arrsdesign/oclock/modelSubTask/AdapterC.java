@@ -1,16 +1,12 @@
 package com.arrsdesign.oclock.modelSubTask;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,19 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.Register;
 import com.arrsdesign.oclock.TaskInput;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.ViewHolder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -48,8 +37,6 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
     ArrayList<TaskInput> taskInputs;
     FirebaseDatabase database;
     DatabaseReference reference;
-    Integer number = new Random().nextInt();
-
 
 
 
@@ -67,7 +54,7 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         holder.titleTask.setText(taskInputs.get(position).getTitleTask());
         holder.startDate.setText(taskInputs.get(position).getStartDate());
         holder.endDate.setText(taskInputs.get(position).getEndDate());
@@ -76,6 +63,13 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
         final String getStartDate = taskInputs.get(position).getStartDate();
         final String getEndDate = taskInputs.get(position).getEndDate();
 
+<<<<<<< HEAD
+=======
+        final String key = taskInputs.get(position).getKey();
+
+        
+
+>>>>>>> parent of f21b054... implementing Edit
     }
 
     @Override
@@ -86,7 +80,6 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
 
         TextView titleTask, startDate, endDate, key, difficultyNumber, numberPages, numberSub, timeInMinutes, timeInHours, timeInDays;
         LinearLayout linearLayout;
-        ImageView edit, delete;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -101,8 +94,11 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
             timeInHours = itemView.findViewById(R.id.timeInHours);
             timeInDays = itemView.findViewById(R.id.timeInDays);
 
+<<<<<<< HEAD
             edit = itemView.findViewById(R.id.edit);
             delete = itemView.findViewById(R.id.delete);
+=======
+>>>>>>> parent of f21b054... implementing Edit
 
         }
 

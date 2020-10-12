@@ -70,6 +70,8 @@ public class Current extends Fragment {
             }
         });
 
+
+
         return view;
     }
 }
