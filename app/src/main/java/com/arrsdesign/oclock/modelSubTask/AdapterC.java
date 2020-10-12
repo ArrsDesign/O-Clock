@@ -24,8 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.Register;
-import com.arrsdesign.oclock.Task2;
-import com.arrsdesign.oclock.Task2_Fragments.Current;
 import com.arrsdesign.oclock.TaskInput;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
