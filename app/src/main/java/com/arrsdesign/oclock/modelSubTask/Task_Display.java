@@ -50,6 +50,9 @@ public class Task_Display extends AppCompatActivity {
 
     ArrayList<TaskInput> taskInputs;
 
+    String receiveTask;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +75,8 @@ public class Task_Display extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
 
+        receiveTask = getIntent().getStringExtra("task");
+
         ImageView back = findViewById(R.id.backArrow);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,9 +94,6 @@ public class Task_Display extends AppCompatActivity {
 
         list.add(task);
         list.add(task);
-        list.add(task);
-        list.add(task);
-        list.add(task);
 
         //Initialize Adapter
         SubAdapter subAdapter = new SubAdapter((ArrayList<SubTaskModel>) list);
@@ -104,8 +106,32 @@ public class Task_Display extends AppCompatActivity {
         //Get Firebase Data
         reference = FirebaseDatabase.getInstance().getReference().child("OClock");
 
-        getIncom
+        reference.child(receiveTask).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1: snapshot.getChildren()){
+                    String titleTask = snapshot1.child("titleTask").getValue().toString();
+                    String startDate = snapshot1.child("startDate").getValue().toString();
+                    String end = snapshot1.child("endDate").getValue().toString();
+                    String difficulty = snapshot1.child("difficultyNumber").getValue().toString();
+                    String pages = snapshot1.child("numberPages").getValue().toString();
+                    String sub = snapshot1.child("numberSub").getValue().toString();
+                    String minutes = snapshot1.child("timeInMinutes").getValue().toString();
+                    String hours = snapshot1.child("timeInHours").getValue().toString();
+                    String days = snapshot1.child("timeInDays").getValue().toString();
 
+                    title.setText(titleTask);
+                    start.setText(startDate);
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 

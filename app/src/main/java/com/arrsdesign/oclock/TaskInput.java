@@ -1,8 +1,10 @@
 package com.arrsdesign.oclock;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ProgressBar;
 
-public class TaskInput {
+public class TaskInput implements Parcelable {
 
     String titleTask;
     String startDate;
@@ -35,6 +37,32 @@ public class TaskInput {
 
 
     }
+
+    protected TaskInput(Parcel in) {
+        titleTask = in.readString();
+        startDate = in.readString();
+        endDate = in.readString();
+        key = in.readString();
+        difficultyNumber = in.readString();
+        numberPages = in.readString();
+        numberSub = in.readString();
+        timeInMinutes = in.readString();
+        timeInHours = in.readString();
+        timeInDays = in.readString();
+        expanded = in.readByte() != 0;
+    }
+
+    public static final Creator<TaskInput> CREATOR = new Creator<TaskInput>() {
+        @Override
+        public TaskInput createFromParcel(Parcel in) {
+            return new TaskInput(in);
+        }
+
+        @Override
+        public TaskInput[] newArray(int size) {
+            return new TaskInput[size];
+        }
+    };
 
     public String getTitleTask() {
         return titleTask;
@@ -122,5 +150,25 @@ public class TaskInput {
 
     public void setExpanded(boolean expanded) {
         this.expanded = expanded;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(titleTask);
+        dest.writeString(startDate);
+        dest.writeString(endDate);
+        dest.writeString(key);
+        dest.writeString(difficultyNumber);
+        dest.writeString(numberPages);
+        dest.writeString(numberSub);
+        dest.writeString(timeInMinutes);
+        dest.writeString(timeInHours);
+        dest.writeString(timeInDays);
+        dest.writeByte((byte) (expanded ? 1 : 0));
     }
 }

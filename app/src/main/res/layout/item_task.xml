@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/titleTask"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginLeft="5dp"
                 android:text="Start"
                 android:textColor="@color/text_bottom"
@@ -54,7 +54,6 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/start"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
                 android:layout_marginRight="20dp"
                 android:layout_below="@+id/titleTask"
                 android:text="Start"
@@ -65,8 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/deadline"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_below="@+id/titleTask"
                 android:layout_toEndOf="@+id/startDate"
                 android:layout_marginTop="10dp"
@@ -81,11 +79,20 @@
                 android:layout_height="wrap_content"
                 android:text="Deadline"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
                 android:layout_below="@+id/titleTask"
                 android:layout_toEndOf="@+id/deadline"
                 android:textColor="@color/links"
                 android:textSize="15dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/delete"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_delete_24"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"/>
+
+
 
         </RelativeLayout>
 

@@ -1,6 +1,8 @@
 package com.arrsdesign.oclock.TaskCreation_Fragment;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -43,6 +45,7 @@ import java.util.Map;
 import java.util.Random;
 
 import static com.arrsdesign.oclock.Register.TAG;
+import static com.google.firebase.database.FirebaseDatabase.getInstance;
 
 public class Reading extends Fragment {
     Button createTask;
@@ -53,7 +56,7 @@ public class Reading extends Fragment {
     DatePickerDialog.OnDateSetListener dateSetListenerEnd;
     Integer number = new Random().nextInt();
     String key = Integer.toString(number);
-    DatabaseReference reference;
+    DatabaseReference reference, referenceFuture;
 
 
     public Reading() {
@@ -88,6 +91,10 @@ public class Reading extends Fragment {
 
         //Button
         createTask = view.findViewById(R.id.createTaskBtnR);
+
+        //Insert data to database
+        reference = FirebaseDatabase.getInstance().getReference().child("Current Task").child("Task " + number);
+        referenceFuture = FirebaseDatabase.getInstance().getReference().child("Future Task").child("Task " + number);
 
 
         //Start Date Selection
@@ -165,33 +172,78 @@ public class Reading extends Fragment {
         createTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Insert data to database
-                reference = FirebaseDatabase.getInstance().getReference().child("OClock").child("Current Task" + number);
-                reference.addValueEventListener(new ValueEventListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Task Created");
+                builder.setMessage("Where would you like to send your task?");
+
+                builder.setPositiveButton("Current Task", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        snapshot.getRef().child("titleTask").setValue(taskName.getText().toString());
-                        snapshot.getRef().child("startDate").setValue(dateStart.getText().toString());
-                        snapshot.getRef().child("endDate").setValue(dateEnd.getText().toString());
-                        snapshot.getRef().child("difficultyNumber").setValue(selectedDifficulty.getText().toString());
-                        snapshot.getRef().child("numberPages").setValue(pages.getText().toString());
-                        snapshot.getRef().child("numberSub").setValue(subTask.getText().toString());
-                        snapshot.getRef().child("timeInMinutes").setValue(minute.getText().toString());
-                        snapshot.getRef().child("timeInHours").setValue(hour.getText().toString());
-                        snapshot.getRef().child("timeInDays").setValue(day.getText().toString());
+                    public void onClick(DialogInterface dialog, int which) {
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                snapshot.getRef().child("titleTask").setValue(taskName.getText().toString());
+                                snapshot.getRef().child("startDate").setValue(dateStart.getText().toString());
+                                snapshot.getRef().child("endDate").setValue(dateEnd.getText().toString());
+                                snapshot.getRef().child("difficultyNumber").setValue(selectedDifficulty.getText().toString());
+                                snapshot.getRef().child("numberPages").setValue(pages.getText().toString());
+                                snapshot.getRef().child("numberSub").setValue(subTask.getText().toString());
+                                snapshot.getRef().child("timeInMinutes").setValue(minute.getText().toString());
+                                snapshot.getRef().child("timeInHours").setValue(hour.getText().toString());
+                                snapshot.getRef().child("timeInDays").setValue(day.getText().toString());
 
-                        snapshot.getRef().child("key").setValue(key);
+                                snapshot.getRef().child("key").setValue(key);
 
-                        Intent a = new Intent(getContext(), Task2.class);
-                        startActivity(a);
+                                Intent a = new Intent(getContext(), Task2.class);
+                                startActivity(a);
 
-                    }
+                            }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
 
                     }
                 });
+
+
+                builder.setNegativeButton("Future Task", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        referenceFuture.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                snapshot.getRef().child("titleTask").setValue(taskName.getText().toString());
+                                snapshot.getRef().child("startDate").setValue(dateStart.getText().toString());
+                                snapshot.getRef().child("endDate").setValue(dateEnd.getText().toString());
+                                snapshot.getRef().child("difficultyNumber").setValue(selectedDifficulty.getText().toString());
+                                snapshot.getRef().child("numberPages").setValue(pages.getText().toString());
+                                snapshot.getRef().child("numberSub").setValue(subTask.getText().toString());
+                                snapshot.getRef().child("timeInMinutes").setValue(minute.getText().toString());
+                                snapshot.getRef().child("timeInHours").setValue(hour.getText().toString());
+                                snapshot.getRef().child("timeInDays").setValue(day.getText().toString());
+
+                                snapshot.getRef().child("key").setValue(key);
+
+                                Intent b = new Intent(getContext(), Task2.class);
+                                startActivity(b);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                    }
+                });
+
+                builder.show();
+
+
             }
         });
 

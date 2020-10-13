@@ -30,13 +30,15 @@
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/tasks"
+            <TextView
+                android:id="@+id/edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_baseline_view_list_24"/>
+                android:text="EDIT"
+                android:textColor="#ffffff"
+                android:textStyle="bold"/>
 
 
     </RelativeLayout>

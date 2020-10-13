@@ -46,7 +46,7 @@ public class Current extends Fragment {
         list = new ArrayList<TaskInput>();
 
         //Get Firebase Data
-        reference = FirebaseDatabase.getInstance().getReference().child("OClock");
+        reference = FirebaseDatabase.getInstance().getReference().child("Current Task");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
