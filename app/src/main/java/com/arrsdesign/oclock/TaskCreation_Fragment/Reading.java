@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +59,7 @@ public class Reading extends Fragment {
     Integer number = new Random().nextInt();
     String key = Integer.toString(number);
     DatabaseReference reference, referenceFuture;
+    ImageView info, infoPages, infoSubTasks, infoDuration;
 
 
     public Reading() {
@@ -87,6 +90,13 @@ public class Reading extends Fragment {
         hour = view.findViewById(R.id.timeInHours);
         day = view.findViewById(R.id.timeInDays);
 
+        //Information Button
+        info = view.findViewById(R.id.info);
+        infoPages = view.findViewById(R.id.infoPages);
+        infoSubTasks = view.findViewById(R.id.infoSubTasks);
+        infoDuration = view.findViewById(R.id.infoDuration);
+
+
 
 
         //Button
@@ -95,6 +105,33 @@ public class Reading extends Fragment {
         //Insert data to database
         reference = FirebaseDatabase.getInstance().getReference().child("Current Task").child("Task " + number);
         referenceFuture = FirebaseDatabase.getInstance().getReference().child("Future Task").child("Task " + number);
+
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "The difficulty number selected will assist in the calculation of the estimated duration of the task.", Toast.LENGTH_LONG).show();
+
+            }
+        });
+        infoPages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "The number of pages you need to read will assist in the calculation of the estimated duration of the task.", Toast.LENGTH_LONG).show();
+
+            }
+        });infoSubTasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "The number of sub task will assist in the calculation of the estimated duration of the task.", Toast.LENGTH_LONG).show();
+
+            }
+        });infoDuration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "This is an estimated duration of your task based on the difficulty, number of pages you are reading, number of sub task expected, and your reading speed.", Toast.LENGTH_LONG).show();
+
+            }
+        });
 
 
         //Start Date Selection
@@ -172,6 +209,33 @@ public class Reading extends Fragment {
         createTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name = taskName.getText().toString();
+                String start = dateStart.getText().toString();
+                String end = dateEnd.getText().toString();
+                String difficulty = selectedDifficulty.getText().toString();
+                String pagesNumber = pages.getText().toString();
+                String subNumber = subTask.getText().toString();
+
+
+                if (TextUtils.isEmpty(name)) {
+                    taskName.setError("Enter Task Name");
+                    return;
+                } else if (TextUtils.isEmpty(start)) {
+                    dateStart.setError("Enter Start Date");
+                    return;
+                } else if (TextUtils.isEmpty(end)) {
+                    dateEnd.setError("Enter Deadline");
+                    return;
+                } else if (TextUtils.isEmpty(difficulty)) {
+                    selectedDifficulty.setError("Enter Difficulty");
+                    return;
+                } else if (TextUtils.isEmpty(pagesNumber)) {
+                    pages.setError("Enter number of pages to read.");
+                    return;
+                } else if (TextUtils.isEmpty(subNumber)) {
+                    subTask.setError("Enter number of expected sub task.");
+                    return;
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Task Created");
                 builder.setMessage("Where would you like to send your task?");
