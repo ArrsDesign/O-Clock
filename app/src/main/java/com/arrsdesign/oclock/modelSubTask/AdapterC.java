@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +55,29 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
         holder.titleTask.setText(taskInputs.get(position).getTitleTask());
         holder.startDate.setText(taskInputs.get(position).getStartDate());
         holder.endDate.setText(taskInputs.get(position).getEndDate());
+        holder.difficultyNumber.setText(taskInputs.get(position).getDifficultyNumber());
+        holder.numberPages.setText(taskInputs.get(position).getNumberPages());
+        holder.numberSub.setText(taskInputs.get(position).getNumberSub());
+        holder.timeInMinutes.setText(taskInputs.get(position).getTimeInMinutes());
+        holder.timeInHours.setText(taskInputs.get(position).getTimeInHours());
+        holder.timeInDays.setText(taskInputs.get(position).getTimeInDays());
+
+
+        final String getTitleTask = taskInputs.get(position).getTitleTask();
+        final String getStartDate = taskInputs.get(position).getStartDate();
+        final String getEndDate = taskInputs.get(position).getEndDate();
+        final String difficultyNumber = taskInputs.get(position).getDifficultyNumber();
+        final String numberPages = taskInputs.get(position).getNumberPages();
+        final String numberSub = taskInputs.get(position).getNumberSub();
+        final String timeInMinutes = taskInputs.get(position).getTimeInMinutes();
+        final String timeInHours = taskInputs.get(position).getTimeInHours();
+        final String timeInDays = taskInputs.get(position).getTimeInDays();
+
+        final String key = taskInputs.get(position).getKey();
+
+        TaskInput input = taskInputs.get(position);
+        boolean isExpanded = taskInputs.get(position).isExpanded();
+        holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 
     }
 
@@ -65,7 +89,7 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
     class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView titleTask, startDate, endDate, key, difficultyNumber, numberPages, numberSub, timeInMinutes, timeInHours, timeInDays;
-        LinearLayout linearLayout;
+        RelativeLayout expandableLayout;
         ImageView delete;
 
 
@@ -82,6 +106,17 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
             timeInDays = itemView.findViewById(R.id.timeInDays);
 
             delete = itemView.findViewById(R.id.delete);
+
+            expandableLayout = itemView.findViewById(R.id.expandableLayout);
+
+            titleTask.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TaskInput input = taskInputs.get(getAdapterPosition());
+                    input.setExpanded(!input.isExpanded());
+                    notifyItemChanged(getAdapterPosition());
+                }
+            });
 
         }
 
