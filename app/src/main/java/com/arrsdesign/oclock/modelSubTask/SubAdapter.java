@@ -1,5 +1,6 @@
 package com.arrsdesign.oclock.modelSubTask;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ public class SubAdapter extends RecyclerView.Adapter<SubAdapter.ViewHolder> {
 
     List<SubTaskModel>subTaskList;
 
-    public SubAdapter(ArrayList<SubTaskModel> subTaskList){
+    public SubAdapter(Context context, ArrayList<SubTaskModel> subTaskList){
         this.subTaskList = subTaskList;
     }
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){

@@ -38,7 +38,7 @@ public class Task_Display extends AppCompatActivity {
 
     FloatingActionButton fab;
 
-    TextView title, start, end, difficulty, pages, sub, minutes, hours, days;
+    TextView titleTask, start, end, difficulty, pages, sub, minutes, hours, days;
 
 
     RecyclerView subRecycler;
@@ -51,9 +51,14 @@ public class Task_Display extends AppCompatActivity {
     AdapterC adapterC;
     LinearLayout layout;
 
-    ArrayList<TaskInput> taskInputs;
+    FloatingActionButton subTaskAdd;
+
+    ArrayList<SubTaskModel> list;
+    SubAdapter subAdapter;
 
     String receiveTask;
+    ArrayList<TaskInput> listOG;
+    AdapterF adapterF;
 
 
     @Override
@@ -61,7 +66,7 @@ public class Task_Display extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task__display);
 
-        title = findViewById(R.id.titleTask);
+        titleTask = findViewById(R.id.titleTask);
         start = findViewById(R.id.startDate);
         end = findViewById(R.id.endDate);
         difficulty = findViewById(R.id.difficultyNumber);
@@ -74,9 +79,9 @@ public class Task_Display extends AppCompatActivity {
         inputList = new ArrayList<TaskInput>();
         layout = findViewById(R.id.dataHolder);
 
-        subRecycler = findViewById(R.id.subTaskRecycler);
+        subTaskAdd = findViewById(R.id.subTaskAdd);
 
-        database = FirebaseDatabase.getInstance();
+        subRecycler = findViewById(R.id.subTaskRecycler);
 
         receiveTask = getIntent().getStringExtra("task");
 
@@ -90,41 +95,49 @@ public class Task_Display extends AppCompatActivity {
             }
         });
 
-        //Initialize nested Recycler View
-        List<SubTaskModel> list = new ArrayList<>();
-        SubTaskModel task = new SubTaskModel();
-        task.setTask("This is a Test");
-        task.setStatus(0);
-        task.setId(1);
+        reference = FirebaseDatabase.getInstance().getReference().child("Future Task").child("Sub Task");
 
-        list.add(task);
-        list.add(task);
+        subTaskAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheet bottomSheet = new BottomSheet();
+                bottomSheet.show(getSupportFragmentManager(), "New Task");
+
+            }
+        });
+
+        //Initialize nested Recycler View
+        list = new ArrayList<SubTaskModel>();
 
         //Initialize Adapter
-        SubAdapter subAdapter = new SubAdapter((ArrayList<SubTaskModel>) list);
         LinearLayoutManager subLayoutManager = new LinearLayoutManager(this);
         //Layout Manager
         subRecycler.setLayoutManager(subLayoutManager);
-        //set adapter
-        subRecycler.setAdapter(subAdapter);
+
+        //Get Firebase Data
+        listOG = new ArrayList<TaskInput>();
 
         //Get Firebase Data
         reference = FirebaseDatabase.getInstance().getReference().child("Future Task");
-
-        reference.child(receiveTask).addValueEventListener(new ValueEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    String titleTask = snapshot.child("titleTask").getValue().toString();
-                    String startDate = snapshot.child("startDate").getValue().toString();
-
-                    title.setText(titleTask);
-                    start.setText(startDate);
+                //retrieve data
+                for (DataSnapshot snapshot1: snapshot.getChildren()){
+                    SubTaskModel p = snapshot1.getValue(SubTaskModel.class);
+                    list.add(p);
                 }
+                subAdapter = new SubAdapter(Task_Display.this, list);
+                subRecycler.setAdapter(subAdapter);
+                adapterF.notifyDataSetChanged();
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                //error code
+                Toast.makeText(context, "No Data", Toast.LENGTH_SHORT).show();
+
 
             }
         });

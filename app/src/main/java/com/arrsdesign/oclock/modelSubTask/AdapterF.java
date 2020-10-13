@@ -60,7 +60,7 @@ public class AdapterF extends RecyclerView.Adapter<AdapterF.MyViewHolder> {
             public void onClick(View v) {
                 String task = taskInputs.get(position).getKey();
                 Intent taskView = new Intent(context, Task_Display.class);
-                taskView.putExtra("task", task);
+                taskView.putExtra("hate", task);
                 context.startActivity(taskView);
 
             }
