@@ -8,10 +8,11 @@
     android:id="@+id/dataHolder"
     tools:context=".modelSubTask.Task_Display">
 
-    <include layout="@layout/toolbar"
+    <include
         android:id="@+id/toolbar"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
+        layout="@layout/toolbar_sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:id="@+id/linear"

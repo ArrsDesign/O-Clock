@@ -30,13 +30,13 @@ import java.util.ArrayList;
 import static com.google.firebase.database.FirebaseDatabase.getInstance;
 
 
-public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
+public class AdapterF extends RecyclerView.Adapter<AdapterF.MyViewHolder> {
 
     Context context;
     ArrayList<TaskInput> taskInputs;
     DatabaseReference reference;
 
-    public AdapterC(Context c, ArrayList<TaskInput> p) {
+    public AdapterF(Context c, ArrayList<TaskInput> p) {
         context = c;
         taskInputs = p;
     }
@@ -54,6 +54,18 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
         holder.titleTask.setText(taskInputs.get(position).getTitleTask());
         holder.startDate.setText(taskInputs.get(position).getStartDate());
         holder.endDate.setText(taskInputs.get(position).getEndDate());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String task = taskInputs.get(position).getKey();
+                Intent taskView = new Intent(context, Task_Display.class);
+                taskView.putExtra("task", task);
+                context.startActivity(taskView);
+
+            }
+        });
+
 
     }
 

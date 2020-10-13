@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.TaskInput;
 import com.arrsdesign.oclock.modelSubTask.AdapterC;
+import com.arrsdesign.oclock.modelSubTask.AdapterF;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +29,7 @@ public class Future extends Fragment {
     DatabaseReference reference;
     RecyclerView recyclerView;
     ArrayList<TaskInput> list;
-    AdapterC adapterC;
+    AdapterF adapterF;
 
 
     public Future() {
@@ -55,9 +56,9 @@ public class Future extends Fragment {
                     TaskInput p = snapshot1.getValue(TaskInput.class);
                     list.add(p);
                 }
-                adapterC = new AdapterC(getContext(), list);
-                recyclerView.setAdapter(adapterC);
-                adapterC.notifyDataSetChanged();
+                adapterF = new AdapterF(getContext(), list);
+                recyclerView.setAdapter(adapterF);
+                adapterF.notifyDataSetChanged();
 
             }
 

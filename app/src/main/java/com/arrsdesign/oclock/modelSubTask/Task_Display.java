@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.FutureTask;
 
 public class Task_Display extends AppCompatActivity {
 
@@ -78,6 +81,8 @@ public class Task_Display extends AppCompatActivity {
         receiveTask = getIntent().getStringExtra("task");
 
         ImageView back = findViewById(R.id.backArrow);
+        ImageView more = findViewById(R.id.more);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,26 +109,17 @@ public class Task_Display extends AppCompatActivity {
         subRecycler.setAdapter(subAdapter);
 
         //Get Firebase Data
-        reference = FirebaseDatabase.getInstance().getReference().child("OClock");
+        reference = FirebaseDatabase.getInstance().getReference().child("Future Task");
 
         reference.child(receiveTask).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snapshot1: snapshot.getChildren()){
-                    String titleTask = snapshot1.child("titleTask").getValue().toString();
-                    String startDate = snapshot1.child("startDate").getValue().toString();
-                    String end = snapshot1.child("endDate").getValue().toString();
-                    String difficulty = snapshot1.child("difficultyNumber").getValue().toString();
-                    String pages = snapshot1.child("numberPages").getValue().toString();
-                    String sub = snapshot1.child("numberSub").getValue().toString();
-                    String minutes = snapshot1.child("timeInMinutes").getValue().toString();
-                    String hours = snapshot1.child("timeInHours").getValue().toString();
-                    String days = snapshot1.child("timeInDays").getValue().toString();
+                if (snapshot.exists()){
+                    String titleTask = snapshot.child("titleTask").getValue().toString();
+                    String startDate = snapshot.child("startDate").getValue().toString();
 
                     title.setText(titleTask);
                     start.setText(startDate);
-
-
                 }
             }
 
