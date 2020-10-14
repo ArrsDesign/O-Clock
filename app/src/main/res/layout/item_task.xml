@@ -98,6 +98,10 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:id="@+id/progress_circular"
+                android:indeterminateOnly="false"
+                android:progressDrawable="@drawable/circular_progress"
+                android:progress="60"
+                android:rotation="-90"
                 android:layout_marginBottom="20dp"
                 android:layout_centerHorizontal="true"/>
 
@@ -274,8 +278,199 @@
 
                 </LinearLayout>
 
-            </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/subTask"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/estimated"
+                    android:textColor="@color/text_bottom"
+                    android:textStyle="bold"
+                    android:text="Sub Tasks"
+                    android:textSize="15dp"/>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/subOG"
+                    android:background="@drawable/rounded_rectangle_white"
+                    android:layout_below="@+id/subTask"
+                    android:orientation="horizontal"
+                    android:elevation="4dp"
+                    >
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/buttons"
+                        android:layout_centerVertical="true"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Sub Task Title"
+                        android:textColor="@color/text_bottom"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/checkbox"
+                        android:layout_marginRight="15dp"
+                        android:gravity="center"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sub1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/rounded_rectangle_white"
+                    android:layout_below="@+id/subOG"
+                    android:orientation="horizontal"
+                    android:elevation="4dp"
+                    >
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkbox1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/buttons"
+                        android:layout_centerVertical="true"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Sub Task Title"
+                        android:textColor="@color/text_bottom"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/checkbox1"
+                        android:layout_marginRight="15dp"
+                        android:gravity="center"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/sub2"
+                    android:background="@drawable/rounded_rectangle_white"
+                    android:layout_below="@+id/sub1"
+                    android:orientation="horizontal"
+                    android:elevation="4dp"
+                    >
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkbox2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/buttons"
+                        android:layout_centerVertical="true"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Sub Task Title"
+                        android:id="@+id/text2"
+                        android:textColor="@color/text_bottom"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_toEndOf="@+id/checkbox2"
+                        android:gravity="center"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/sub3"
+                    android:background="@drawable/rounded_rectangle_white"
+                    android:layout_below="@+id/sub2"
+                    android:orientation="horizontal"
+                    android:elevation="4dp"
+                    >
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkbox3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/buttons"
+                        android:layout_centerVertical="true"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Sub Task Title"
+                        android:textColor="@color/text_bottom"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_toEndOf="@+id/checkbox3"
+                        android:gravity="center"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/sub4"
+                    android:background="@drawable/rounded_rectangle_white"
+                    android:layout_below="@+id/sub3"
+                    android:orientation="horizontal"
+                    android:elevation="4dp"
+                    >
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkbox4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/buttons"
+                        android:layout_centerVertical="true"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Sub Task Title"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/text_bottom"
+                        android:layout_marginRight="15dp"
+                        android:layout_toEndOf="@+id/checkbox4"
+                        android:gravity="center"/>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sub4"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_baseline_edit_24" />
+                <ImageView
+                    android:id="@+id/delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sub4"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_baseline_delete_24" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

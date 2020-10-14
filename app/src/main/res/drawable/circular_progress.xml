@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-</selector>
+    <item>
+        <shape
+            android:shape="ring"
+            android:thicknessRatio="6"
+            android:useLevel="false">
+            <solid android:color="#b0bbc1"/>
+
+        </shape>
+    </item>
+    <item>
+        <shape
+            android:shape="ring"
+            android:thicknessRatio="6"
+            android:useLevel="true">
+            <solid android:color="@color/buttons"/>
+
+        </shape>
+    </item>
+
+</layer-list>
