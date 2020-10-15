@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".EditTask"></activity>
+
         <activity android:name=".modelSubTask.Task_Display" />
         <activity
             android:name=".Task2"
@@ -19,7 +20,7 @@
         <activity
             android:name=".Task_Creation2"
             android:label="@string/title_activity_task__creation2" />
-        <activity android:name=".MainActivity2" />
+        <activity android:name=".EditTaskComplete" />
         <activity android:name=".SplashScreen" />
         <activity
             android:name=".Profile"

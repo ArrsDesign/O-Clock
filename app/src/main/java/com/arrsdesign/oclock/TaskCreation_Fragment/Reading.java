@@ -28,6 +28,8 @@ import android.widget.Toast;
 
 import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.Task2;
+import com.arrsdesign.oclock.Task2_Fragments.Current;
+import com.arrsdesign.oclock.Task2_Fragments.Future;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -261,7 +263,7 @@ public class Reading extends Fragment {
 
                                 snapshot.getRef().child("key").setValue(key);
 
-                                Intent a = new Intent(getContext(), Task2.class);
+                                Intent a = new Intent(getContext(), Current.class);
                                 startActivity(a);
 
                             }
@@ -295,7 +297,7 @@ public class Reading extends Fragment {
 
                                 snapshot.getRef().child("key").setValue(key);
 
-                                Intent b = new Intent(getContext(), Task2.class);
+                                Intent b = new Intent(getContext(), Future.class);
                                 startActivity(b);
                             }
 

@@ -25,6 +25,7 @@ import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arrsdesign.oclock.EditTask;
+import com.arrsdesign.oclock.EditTaskComplete;
 import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.TaskInput;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -108,8 +109,6 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
                 editTask.putExtra("timeInHours", timeInHours);
                 editTask.putExtra("timeInDays", timeInDays);
                 editTask.putExtra("key",key);
-
-
                 context.startActivity(editTask);
             }
         });
@@ -302,6 +301,10 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
                     notifyItemChanged(getAdapterPosition());
                 }
             });
+
+            if (progress_circular.getProgress() == 100){
+                Toast.makeText(context, "Task Completed! Hit the edit button to move to your completed tasks.", Toast.LENGTH_LONG).show();
+            }
 
         }
 

@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arrsdesign.oclock.EditTask;
+import com.arrsdesign.oclock.EditTaskF;
 import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.Task2_Fragments.Completed;
 import com.arrsdesign.oclock.TaskInput;
@@ -90,7 +91,7 @@ public class AdapterF extends RecyclerView.Adapter<AdapterF.MyViewHolder> {
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editTask = new Intent(context, EditTask.class);
+                Intent editTask = new Intent(context, EditTaskF.class);
                 editTask.putExtra("titleTask", titleTask);
                 editTask.putExtra("startDate", startDate);
                 editTask.putExtra("endDate", endDate);
@@ -101,7 +102,6 @@ public class AdapterF extends RecyclerView.Adapter<AdapterF.MyViewHolder> {
                 editTask.putExtra("timeInHours", timeInHours);
                 editTask.putExtra("timeInDays", timeInDays);
                 editTask.putExtra("key",key);
-
 
                 context.startActivity(editTask);
             }
@@ -275,7 +275,9 @@ public class AdapterF extends RecyclerView.Adapter<AdapterF.MyViewHolder> {
             });
 
             if (progress_circular.getProgress() == 100){
-                AlertDialog.Builder builder
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Task Completed");
+                builder.setMessage("Would you like to move task to completed task?");
                 Intent complete = new Intent(context, Completed.class);
             }
 

@@ -39,18 +39,18 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         ImageView back = findViewById(R.id.backArrow);
-        TextView edit = findViewById(R.id.edit);
         TextView title = findViewById(R.id.toolbarTitle);
         pEmail=findViewById(R.id.userEmail);
         pUsername=findViewById(R.id.userName);
         pAuth=FirebaseAuth.getInstance();
         pStore=FirebaseFirestore.getInstance();
         userID=pAuth.getCurrentUser().getUid();
-        pForgot=findViewById(R.id.resetPasswordBtn);
         pReadingSpeed=findViewById(R.id.readingSpeed);
         pWritingSpeed=findViewById(R.id.writingSpeed);
         fButton = findViewById(R.id.taskCreation);
 
+
+        title.setText("PROFILE");
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,14 +58,6 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Profile.this, Task2.class));
-            }
-        });
-
-        title.setText("PROFILE");
 
 
         fButton.setOnClickListener(new View.OnClickListener() {

@@ -28,7 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class Task2 extends AppCompatActivity {
-    ImageView back;
+    ImageView back, profile;
     FirebaseAuth pAuth;
     FirebaseFirestore pStore;
     String userID;
@@ -47,8 +47,9 @@ public class Task2 extends AppCompatActivity {
         pAuth= FirebaseAuth.getInstance();
         pStore= FirebaseFirestore.getInstance();
         userID=pAuth.getCurrentUser().getUid();
-        ImageView profile = findViewById(R.id.profile);
+        profile = findViewById(R.id.profile);
         final TextView title = findViewById(R.id.name);
+
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

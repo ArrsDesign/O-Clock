@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.arrsdesign.oclock.Task2_Fragments.Current;
+import com.arrsdesign.oclock.Task2_Fragments.Future;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -134,7 +135,7 @@ public class EditTaskF extends AppCompatActivity {
 
                         snapshot.getRef().child("key").setValue(keyTask);
 
-                        Intent update = new Intent(EditTaskF.this, Current.class);
+                        Intent update = new Intent(EditTaskF.this, Task2.class);
                         startActivity(update);
 
 
@@ -156,7 +157,7 @@ public class EditTaskF extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            Intent deleteItem = new Intent(EditTaskF.this, Current.class);
+                            Intent deleteItem = new Intent(EditTaskF.this, Task2.class);
                             startActivity(deleteItem);
                         }
 
