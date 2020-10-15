@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Task2_Fragments.Current"
-    android:padding="10dp">
+    >
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/recyclerC"
-        android:nestedScrollingEnabled="true">
+        android:nestedScrollingEnabled="false"
+        android:layout_marginBottom="?attr/actionBarSize">
 
     </androidx.recyclerview.widget.RecyclerView>
 

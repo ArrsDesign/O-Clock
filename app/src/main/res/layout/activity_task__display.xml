@@ -274,21 +274,6 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:nestedScrollingEnabled="true"/>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/subTaskAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/subTaskRecycler"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/buttons"
-                android:padding="50dp"
-                android:src="@drawable/ic_add"
-                app:backgroundTint="@color/buttons"
-                app:fabSize="normal"
-                app:maxImageSize="20dp" />
 
         </RelativeLayout>
 

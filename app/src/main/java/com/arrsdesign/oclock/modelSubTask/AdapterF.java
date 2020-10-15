@@ -4,11 +4,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,9 +92,11 @@ public class AdapterF extends RecyclerView.Adapter<AdapterF.MyViewHolder> {
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView titleTask, startDate, endDate, key, difficultyNumber, numberPages, numberSub, timeInMinutes, timeInHours, timeInDays;
+        TextView text_progress, titleTask, startDate, endDate, key, difficultyNumber, numberPages, numberSub, timeInMinutes, timeInHours, timeInDays;
         RelativeLayout expandableLayout;
         ImageView delete;
+        ProgressBar progress_circular;
+
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -105,6 +112,137 @@ public class AdapterF extends RecyclerView.Adapter<AdapterF.MyViewHolder> {
             timeInDays = itemView.findViewById(R.id.timeInDays);
 
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
+
+            //Progress Tracking
+            text_progress = itemView.findViewById(R.id.text_progress);
+            progress_circular = itemView.findViewById(R.id.progress_circular);
+            final float value = progress_circular.getProgress();
+            final CheckBox checkbox = itemView.findViewById(R.id.checkbox);
+            final CheckBox checkbox1 = itemView.findViewById(R.id.checkbox1);
+            final CheckBox checkbox2 = itemView.findViewById(R.id.checkbox2);
+            final CheckBox checkbox3 = itemView.findViewById(R.id.checkbox3);
+            final CheckBox checkbox4 = itemView.findViewById(R.id.checkbox4);
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences.Editor editor = preferences.edit();
+            if (preferences.contains("checkbox") && preferences.getBoolean("checkbox", false)) {
+                checkbox.setChecked(true);
+            }else {
+                checkbox.setChecked(false);
+            }
+            checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (checkbox.isChecked()){
+                        editor.putBoolean("checkbox", true);
+                        progress_circular.setProgress(progress_circular.getProgress()+20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    } else {
+                        editor.putBoolean("checkbox", false);
+                        progress_circular.setProgress(progress_circular.getProgress()-20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    }
+                    editor.apply();
+                }
+            });
+
+            if (preferences.contains("checkbox1") && preferences.getBoolean("checkbox1", false)) {
+                checkbox1.setChecked(true);
+            }else {
+                checkbox1.setChecked(false);
+            }
+            checkbox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (checkbox1.isChecked()){
+                        editor.putBoolean("checkbox1", true);
+                        progress_circular.setProgress(progress_circular.getProgress()+20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    } else {
+                        editor.putBoolean("checkbox1", false);
+                        progress_circular.setProgress(progress_circular.getProgress()-20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    }
+                    editor.apply();
+                }
+            });
+
+            if (preferences.contains("checkbox2") && preferences.getBoolean("checkbox2", false)) {
+                checkbox1.setChecked(true);
+            }else {
+                checkbox1.setChecked(false);
+            }
+            checkbox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (checkbox2.isChecked()){
+                        editor.putBoolean("checkbox2", true);
+                        progress_circular.setProgress(progress_circular.getProgress()+20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    } else {
+                        editor.putBoolean("checkbox2", false);
+                        progress_circular.setProgress(progress_circular.getProgress()-20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    }
+                    editor.apply();
+                }
+            });
+
+            if (preferences.contains("checkbox3") && preferences.getBoolean("checkbox3", false)) {
+                checkbox1.setChecked(true);
+            }else {
+                checkbox1.setChecked(false);
+            }
+            checkbox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (checkbox3.isChecked()){
+                        editor.putBoolean("checkbox3", true);
+                        progress_circular.setProgress(progress_circular.getProgress()+20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    } else {
+                        editor.putBoolean("checkbox3", false);
+                        progress_circular.setProgress(progress_circular.getProgress()-20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    }
+                    editor.apply();
+                }
+            });
+
+            if (preferences.contains("checkbox4") && preferences.getBoolean("checkbox4", false)) {
+                checkbox1.setChecked(true);
+            }else {
+                checkbox1.setChecked(false);
+            }
+            checkbox4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (checkbox4.isChecked()){
+                        editor.putBoolean("checkbox4", true);
+                        progress_circular.setProgress(progress_circular.getProgress()+20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    } else {
+                        editor.putBoolean("checkbox4", false);
+                        progress_circular.setProgress(progress_circular.getProgress()-20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    }
+                    editor.apply();
+                }
+            });
+
+            if (progress_circular.getProgress() == 100){
+
+            }
 
             titleTask.setOnClickListener(new View.OnClickListener() {
                 @Override

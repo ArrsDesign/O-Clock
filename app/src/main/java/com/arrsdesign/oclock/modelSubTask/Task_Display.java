@@ -79,7 +79,6 @@ public class Task_Display extends AppCompatActivity {
         inputList = new ArrayList<TaskInput>();
         layout = findViewById(R.id.dataHolder);
 
-        subTaskAdd = findViewById(R.id.subTaskAdd);
 
         subRecycler = findViewById(R.id.subTaskRecycler);
 

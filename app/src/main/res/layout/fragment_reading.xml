@@ -16,12 +16,13 @@
                 android:id="@+id/taskNameR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:hint="Enter Task Name"
+                android:inputType="text"
                 android:textColor="@color/text_bottom"
                 android:textColorHint="@color/links"
-                android:textSize="20dp"
-                android:gravity="center"
-                android:layout_marginTop="20dp"/>
+                android:textSize="20dp" />
 
             <!--Sub task Selection-->
             <RelativeLayout
@@ -41,8 +42,9 @@
                     android:id="@+id/editTextDateStart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="MM/DD/YYYY"
                     android:layout_alignParentEnd="true"
+                    android:hint="MM/DD/YYYY"
+                    android:inputType="date"
                     android:textColor="@color/text_bottom"
                     android:textColorHint="@color/links"
                     android:textSize="15dp" />
@@ -67,8 +69,9 @@
                     android:id="@+id/editTextDateEnd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="MM/DD/YYYY"
                     android:layout_alignParentEnd="true"
+                    android:hint="MM/DD/YYYY"
+                    android:inputType="date"
                     android:textColor="@color/text_bottom"
                     android:textColorHint="@color/links"
                     android:textSize="15dp" />
@@ -149,11 +152,12 @@
                     android:id="@+id/numberOfPagesR"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/infoPages"
                     android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/infoPages"
                     android:hint="# of Sub Tasks"
+                    android:inputType="number"
                     android:textColor="@color/text_bottom"
-                    android:textSize="15dp"/>
+                    android:textSize="15dp" />
 
                 <ImageView
                     android:id="@+id/infoPages"
@@ -187,11 +191,12 @@
                     android:id="@+id/numberOfSubTasksR"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/infoSubTasks"
                     android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/infoSubTasks"
                     android:hint="# of Sub Tasks"
+                    android:inputType="number"
                     android:textColor="@color/text_bottom"
-                    android:textSize="15dp"/>
+                    android:textSize="15dp" />
 
                 <ImageView
                     android:id="@+id/infoSubTasks"

@@ -4,26 +4,37 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.TaskInput;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -36,6 +47,8 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
     Context context;
     ArrayList<TaskInput> taskInputs;
     DatabaseReference reference;
+    FirebaseDatabase data;
+    AdapterC adapterC;
 
     public AdapterC(Context c, ArrayList<TaskInput> p) {
         context = c;
@@ -79,6 +92,43 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
         boolean isExpanded = taskInputs.get(position).isExpanded();
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 
+        data = FirebaseDatabase.getInstance();
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(holder.endDate.getContext());
+                builder.setTitle("Delete Task");
+                builder.setMessage("Would you like to delete this task?");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseDatabase.getInstance().getReference()
+                                .child("Current Task").child(String.valueOf(taskInputs)).removeValue();
+                        taskInputs.remove(position);
+                        notifyDataSetChanged();
+                        notifyItemRangeChanged(position, taskInputs.size());
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
+            }
+        });
+
+
+
+
+
+    }
+
+    private void deleteTask(String taskID, final int position){
+
     }
 
     @Override
@@ -88,9 +138,10 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView titleTask, startDate, endDate, key, difficultyNumber, numberPages, numberSub, timeInMinutes, timeInHours, timeInDays;
+        TextView text_progress, titleTask, startDate, endDate, key, difficultyNumber, numberPages, numberSub, timeInMinutes, timeInHours, timeInDays;
         RelativeLayout expandableLayout;
         ImageView delete;
+        ProgressBar progress_circular;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -108,6 +159,138 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
             delete = itemView.findViewById(R.id.delete);
 
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
+
+            //Progress Tracking
+            text_progress = itemView.findViewById(R.id.text_progress);
+            progress_circular = itemView.findViewById(R.id.progress_circular);
+            final float value = progress_circular.getProgress();
+            final CheckBox checkbox = itemView.findViewById(R.id.checkbox);
+            final CheckBox checkbox1 = itemView.findViewById(R.id.checkbox1);
+            final CheckBox checkbox2 = itemView.findViewById(R.id.checkbox2);
+            final CheckBox checkbox3 = itemView.findViewById(R.id.checkbox3);
+            final CheckBox checkbox4 = itemView.findViewById(R.id.checkbox4);
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences.Editor editor = preferences.edit();
+            if (preferences.contains("checkbox") && preferences.getBoolean("checkbox", false)) {
+                checkbox.setChecked(true);
+            }else {
+                checkbox.setChecked(false);
+            }
+            checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (checkbox.isChecked()){
+                        editor.putBoolean("checkbox", true);
+                        progress_circular.setProgress(progress_circular.getProgress()+20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    } else {
+                        editor.putBoolean("checkbox", false);
+                        progress_circular.setProgress(progress_circular.getProgress()-20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    }
+                    editor.apply();
+                }
+            });
+
+            if (preferences.contains("checkbox1") && preferences.getBoolean("checkbox1", false)) {
+                checkbox1.setChecked(true);
+            }else {
+                checkbox1.setChecked(false);
+            }
+            checkbox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (checkbox1.isChecked()){
+                        editor.putBoolean("checkbox1", true);
+                        progress_circular.setProgress(progress_circular.getProgress()+20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    } else {
+                        editor.putBoolean("checkbox1", false);
+                        progress_circular.setProgress(progress_circular.getProgress()-20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    }
+                    editor.apply();
+                }
+            });
+
+            if (preferences.contains("checkbox2") && preferences.getBoolean("checkbox2", false)) {
+                checkbox1.setChecked(true);
+            }else {
+                checkbox1.setChecked(false);
+            }
+            checkbox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (checkbox2.isChecked()){
+                        editor.putBoolean("checkbox2", true);
+                        progress_circular.setProgress(progress_circular.getProgress()+20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    } else {
+                        editor.putBoolean("checkbox2", false);
+                        progress_circular.setProgress(progress_circular.getProgress()-20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    }
+                    editor.apply();
+                }
+            });
+
+            if (preferences.contains("checkbox3") && preferences.getBoolean("checkbox3", false)) {
+                checkbox1.setChecked(true);
+            }else {
+                checkbox1.setChecked(false);
+            }
+            checkbox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (checkbox3.isChecked()){
+                        editor.putBoolean("checkbox3", true);
+                        progress_circular.setProgress(progress_circular.getProgress()+20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    } else {
+                        editor.putBoolean("checkbox3", false);
+                        progress_circular.setProgress(progress_circular.getProgress()-20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    }
+                    editor.apply();
+                }
+            });
+
+            if (preferences.contains("checkbox4") && preferences.getBoolean("checkbox4", false)) {
+                checkbox1.setChecked(true);
+            }else {
+                checkbox1.setChecked(false);
+            }
+            checkbox4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (checkbox4.isChecked()){
+                        editor.putBoolean("checkbox4", true);
+                        progress_circular.setProgress(progress_circular.getProgress()+20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    } else {
+                        editor.putBoolean("checkbox4", false);
+                        progress_circular.setProgress(progress_circular.getProgress()-20);
+                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
+
+                    }
+                    editor.apply();
+                }
+            });
+
+            if (progress_circular.getProgress() == 100){
+
+            }
+
 
             titleTask.setOnClickListener(new View.OnClickListener() {
                 @Override
