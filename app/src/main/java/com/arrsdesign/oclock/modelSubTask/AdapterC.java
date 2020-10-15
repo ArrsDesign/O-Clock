@@ -86,6 +86,7 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
         final String timeInMinutes = taskInputs.get(position).getTimeInMinutes();
         final String timeInHours = taskInputs.get(position).getTimeInHours();
         final String timeInDays = taskInputs.get(position).getTimeInDays();
+        final String key = taskInputs.get(position).getKey();
 
         TaskInput input = taskInputs.get(position);
         boolean isExpanded = taskInputs.get(position).isExpanded();
@@ -106,6 +107,7 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
                 editTask.putExtra("timeInMinutes", timeInMinutes);
                 editTask.putExtra("timeInHours", timeInHours);
                 editTask.putExtra("timeInDays", timeInDays);
+                editTask.putExtra("key",key);
 
 
                 context.startActivity(editTask);

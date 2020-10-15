@@ -1,8 +1,10 @@
 package com.arrsdesign.oclock;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,7 +18,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arrsdesign.oclock.Task2_Fragments.Current;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
@@ -32,6 +39,7 @@ public class EditTask extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener dateSetListenerEnd;
     ImageView info, infoPages, infoSubTasks, infoDuration;
     Button updateTask;
+    DatabaseReference reference;
 
 
 
@@ -94,6 +102,44 @@ public class EditTask extends AppCompatActivity {
         minute.setText(getIntent().getStringExtra("timeInMinutes"));
         hour.setText(getIntent().getStringExtra("timeInHours"));
         day.setText(getIntent().getStringExtra("timeInDays"));
+
+        final String keyTask = getIntent().getStringExtra("key");
+
+        //make update
+        updateTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reference = FirebaseDatabase.getInstance().getReference()
+                        .child("Current Task").child("Task"+keyTask);
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        snapshot.getRef().child("titleTask").setValue(taskName.getText().toString());
+                        snapshot.getRef().child("startDate").setValue(dateStart.getText().toString());
+                        snapshot.getRef().child("endDate").setValue(dateEnd.getText().toString());
+                        snapshot.getRef().child("difficultyNumber").setValue(selectedDifficulty.getText().toString());
+                        snapshot.getRef().child("numberPages").setValue(pages.getText().toString());
+                        snapshot.getRef().child("numberSub").setValue(subTask.getText().toString());
+                        snapshot.getRef().child("timeInMinutes").setValue(minute.getText().toString());
+                        snapshot.getRef().child("timeInHours").setValue(hour.getText().toString());
+                        snapshot.getRef().child("timeInDays").setValue(day.getText().toString());
+
+                        snapshot.getRef().child("key").setValue(keyTask);
+
+                        Intent update = new Intent(EditTask.this, Current.class);
+                        startActivity(update);
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
 
 
 
