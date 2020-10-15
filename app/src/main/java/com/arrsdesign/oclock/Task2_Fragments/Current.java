@@ -63,9 +63,7 @@ public class Current extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                //error code
                 Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
-
 
             }
         });

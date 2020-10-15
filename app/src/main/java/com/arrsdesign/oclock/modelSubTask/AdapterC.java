@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.arrsdesign.oclock.EditTask;
 import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.TaskInput;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -76,9 +77,9 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
         holder.timeInDays.setText(taskInputs.get(position).getTimeInDays());
 
 
-        final String getTitleTask = taskInputs.get(position).getTitleTask();
-        final String getStartDate = taskInputs.get(position).getStartDate();
-        final String getEndDate = taskInputs.get(position).getEndDate();
+        final String titleTask = taskInputs.get(position).getTitleTask();
+        final String startDate = taskInputs.get(position).getStartDate();
+        final String endDate = taskInputs.get(position).getEndDate();
         final String difficultyNumber = taskInputs.get(position).getDifficultyNumber();
         final String numberPages = taskInputs.get(position).getNumberPages();
         final String numberSub = taskInputs.get(position).getNumberSub();
@@ -86,44 +87,30 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
         final String timeInHours = taskInputs.get(position).getTimeInHours();
         final String timeInDays = taskInputs.get(position).getTimeInDays();
 
-        final String key = taskInputs.get(position).getKey();
-
         TaskInput input = taskInputs.get(position);
         boolean isExpanded = taskInputs.get(position).isExpanded();
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 
         data = FirebaseDatabase.getInstance();
 
-        holder.delete.setOnClickListener(new View.OnClickListener() {
+        holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(holder.endDate.getContext());
-                builder.setTitle("Delete Task");
-                builder.setMessage("Would you like to delete this task?");
-                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        FirebaseDatabase.getInstance().getReference()
-                                .child("Current Task").child(String.valueOf(taskInputs)).removeValue();
-                        taskInputs.remove(position);
-                        notifyDataSetChanged();
-                        notifyItemRangeChanged(position, taskInputs.size());
+                Intent editTask = new Intent(context, EditTask.class);
+                editTask.putExtra("titleTask", titleTask);
+                editTask.putExtra("startDate", startDate);
+                editTask.putExtra("endDate", endDate);
+                editTask.putExtra("difficultyNumber", difficultyNumber);
+                editTask.putExtra("numberPages", numberPages);
+                editTask.putExtra("numberSub", numberSub);
+                editTask.putExtra("timeInMinutes", timeInMinutes);
+                editTask.putExtra("timeInHours", timeInHours);
+                editTask.putExtra("timeInDays", timeInDays);
 
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
-                builder.show();
+                context.startActivity(editTask);
             }
         });
-
-
-
-
 
     }
 
@@ -140,7 +127,7 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
 
         TextView text_progress, titleTask, startDate, endDate, key, difficultyNumber, numberPages, numberSub, timeInMinutes, timeInHours, timeInDays;
         RelativeLayout expandableLayout;
-        ImageView delete;
+        ImageView edit;
         ProgressBar progress_circular;
 
 
@@ -156,7 +143,7 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
             timeInHours = itemView.findViewById(R.id.timeInHours);
             timeInDays = itemView.findViewById(R.id.timeInDays);
 
-            delete = itemView.findViewById(R.id.delete);
+            edit = itemView.findViewById(R.id.edit);
 
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
 
@@ -206,14 +193,13 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
                     if (checkbox1.isChecked()){
                         editor.putBoolean("checkbox1", true);
                         progress_circular.setProgress(progress_circular.getProgress()+20);
-                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
 
                     } else {
                         editor.putBoolean("checkbox1", false);
                         progress_circular.setProgress(progress_circular.getProgress()-20);
-                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
 
                     }
+                    text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
                     editor.apply();
                 }
             });
@@ -229,14 +215,13 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
                     if (checkbox2.isChecked()){
                         editor.putBoolean("checkbox2", true);
                         progress_circular.setProgress(progress_circular.getProgress()+20);
-                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
 
                     } else {
                         editor.putBoolean("checkbox2", false);
                         progress_circular.setProgress(progress_circular.getProgress()-20);
-                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
 
                     }
+                    text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
                     editor.apply();
                 }
             });
@@ -252,14 +237,13 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
                     if (checkbox3.isChecked()){
                         editor.putBoolean("checkbox3", true);
                         progress_circular.setProgress(progress_circular.getProgress()+20);
-                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
 
                     } else {
                         editor.putBoolean("checkbox3", false);
                         progress_circular.setProgress(progress_circular.getProgress()-20);
-                        text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
 
                     }
+                    text_progress.setText(String.valueOf(progress_circular.getProgress()) + "%");
                     editor.apply();
                 }
             });
@@ -288,6 +272,22 @@ public class AdapterC extends RecyclerView.Adapter<AdapterC.MyViewHolder> {
             });
 
             if (progress_circular.getProgress() == 100){
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Completed Task");
+                builder.setMessage("Would you like to move this task to Complete?");
+                builder.setPositiveButton("Move to Completed", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
 
             }
 

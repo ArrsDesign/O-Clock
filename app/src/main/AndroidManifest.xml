@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".modelSubTask.Task_Display"></activity>
+        <activity android:name=".EditTask"></activity>
+        <activity android:name=".modelSubTask.Task_Display" />
         <activity
             android:name=".Task2"
             android:label="@string/title_activity_task2" />

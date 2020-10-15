@@ -96,15 +96,12 @@ public class Reading extends Fragment {
         infoSubTasks = view.findViewById(R.id.infoSubTasks);
         infoDuration = view.findViewById(R.id.infoDuration);
 
-
-
-
         //Button
         createTask = view.findViewById(R.id.createTaskBtnR);
 
         //Insert data to database
-        reference = FirebaseDatabase.getInstance().getReference().child("Current Task").child("Task " + number);
-        referenceFuture = FirebaseDatabase.getInstance().getReference().child("Future Task").child("Task " + number);
+        reference = FirebaseDatabase.getInstance().getReference().child("Current Task").child(key);
+        referenceFuture = FirebaseDatabase.getInstance().getReference().child("Future Task").child(key);
 
         info.setOnClickListener(new View.OnClickListener() {
             @Override
