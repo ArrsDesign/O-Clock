@@ -60,6 +60,9 @@ public class Reading extends Fragment {
     String key = Integer.toString(number);
     DatabaseReference reference, referenceFuture;
     ImageView info, infoPages, infoSubTasks, infoDuration;
+    private FirebaseFirestore mStore;
+    private FirebaseAuth mAuth;
+    String userID;
 
 
     public Reading() {
@@ -100,8 +103,11 @@ public class Reading extends Fragment {
         createTask = view.findViewById(R.id.createTaskBtnR);
 
         //Insert data to database
-        reference = FirebaseDatabase.getInstance().getReference().child("Current Task").child("Task"+number);
-        referenceFuture = FirebaseDatabase.getInstance().getReference().child("Future Task").child("Task"+number);
+        mAuth = FirebaseAuth.getInstance();
+        mStore = FirebaseFirestore.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
+        reference = FirebaseDatabase.getInstance().getReference().child("Current Task" + userID).child("Task"+number);
+        referenceFuture = FirebaseDatabase.getInstance().getReference().child("Future Task" + userID).child("Task"+number);
 
         info.setOnClickListener(new View.OnClickListener() {
             @Override

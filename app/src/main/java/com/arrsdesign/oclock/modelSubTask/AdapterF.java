@@ -21,7 +21,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.arrsdesign.oclock.EditTask;
 import com.arrsdesign.oclock.R;
+import com.arrsdesign.oclock.Task2_Fragments.Completed;
 import com.arrsdesign.oclock.TaskInput;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -67,10 +69,9 @@ public class AdapterF extends RecyclerView.Adapter<AdapterF.MyViewHolder> {
         holder.timeInHours.setText(taskInputs.get(position).getTimeInHours());
         holder.timeInDays.setText(taskInputs.get(position).getTimeInDays());
 
-
-        final String getTitleTask = taskInputs.get(position).getTitleTask();
-        final String getStartDate = taskInputs.get(position).getStartDate();
-        final String getEndDate = taskInputs.get(position).getEndDate();
+        final String titleTask = taskInputs.get(position).getTitleTask();
+        final String startDate = taskInputs.get(position).getStartDate();
+        final String endDate = taskInputs.get(position).getEndDate();
         final String difficultyNumber = taskInputs.get(position).getDifficultyNumber();
         final String numberPages = taskInputs.get(position).getNumberPages();
         final String numberSub = taskInputs.get(position).getNumberSub();
@@ -83,6 +84,29 @@ public class AdapterF extends RecyclerView.Adapter<AdapterF.MyViewHolder> {
         TaskInput input = taskInputs.get(position);
         boolean isExpanded = taskInputs.get(position).isExpanded();
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+
+
+
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editTask = new Intent(context, EditTask.class);
+                editTask.putExtra("titleTask", titleTask);
+                editTask.putExtra("startDate", startDate);
+                editTask.putExtra("endDate", endDate);
+                editTask.putExtra("difficultyNumber", difficultyNumber);
+                editTask.putExtra("numberPages", numberPages);
+                editTask.putExtra("numberSub", numberSub);
+                editTask.putExtra("timeInMinutes", timeInMinutes);
+                editTask.putExtra("timeInHours", timeInHours);
+                editTask.putExtra("timeInDays", timeInDays);
+                editTask.putExtra("key",key);
+
+
+                context.startActivity(editTask);
+            }
+        });
+
     }
 
     @Override
@@ -94,10 +118,8 @@ public class AdapterF extends RecyclerView.Adapter<AdapterF.MyViewHolder> {
 
         TextView text_progress, titleTask, startDate, endDate, key, difficultyNumber, numberPages, numberSub, timeInMinutes, timeInHours, timeInDays;
         RelativeLayout expandableLayout;
-        ImageView delete;
         ProgressBar progress_circular;
-
-
+        ImageView edit;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,6 +132,9 @@ public class AdapterF extends RecyclerView.Adapter<AdapterF.MyViewHolder> {
             timeInMinutes = itemView.findViewById(R.id.timeInMinutes);
             timeInHours = itemView.findViewById(R.id.timeInHours);
             timeInDays = itemView.findViewById(R.id.timeInDays);
+
+            edit = itemView.findViewById(R.id.edit);
+
 
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
 
@@ -240,10 +265,6 @@ public class AdapterF extends RecyclerView.Adapter<AdapterF.MyViewHolder> {
                 }
             });
 
-            if (progress_circular.getProgress() == 100){
-
-            }
-
             titleTask.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -252,6 +273,14 @@ public class AdapterF extends RecyclerView.Adapter<AdapterF.MyViewHolder> {
                     notifyItemChanged(getAdapterPosition());
                 }
             });
+
+            if (progress_circular.getProgress() == 100){
+                AlertDialog.Builder builder
+                Intent complete = new Intent(context, Completed.class);
+            }
+
+
+
 
         }
 

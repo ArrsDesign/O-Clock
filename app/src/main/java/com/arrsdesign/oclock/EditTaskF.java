@@ -1,8 +1,5 @@
 package com.arrsdesign.oclock;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.arrsdesign.oclock.Task2_Fragments.Current;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,7 +33,7 @@ import java.util.Calendar;
 
 import static com.arrsdesign.oclock.Register.TAG;
 
-public class EditTask extends AppCompatActivity {
+public class EditTaskF extends AppCompatActivity {
     TextView title;
     ImageView back;
     EditText taskName, pages, subTask;
@@ -114,7 +114,7 @@ public class EditTask extends AppCompatActivity {
         mStore = FirebaseFirestore.getInstance();
         userID = mAuth.getCurrentUser().getUid();
         reference = FirebaseDatabase.getInstance().getReference()
-                .child("Current Task" + userID).child("Task"+keyTask);
+                .child("Future Task" + userID).child("Task"+keyTask);
         updateTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +134,7 @@ public class EditTask extends AppCompatActivity {
 
                         snapshot.getRef().child("key").setValue(keyTask);
 
-                        Intent update = new Intent(EditTask.this, Current.class);
+                        Intent update = new Intent(EditTaskF.this, Current.class);
                         startActivity(update);
 
 
@@ -156,7 +156,7 @@ public class EditTask extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            Intent deleteItem = new Intent(EditTask.this, Current.class);
+                            Intent deleteItem = new Intent(EditTaskF.this, Current.class);
                             startActivity(deleteItem);
                         }
 
@@ -171,26 +171,26 @@ public class EditTask extends AppCompatActivity {
         info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EditTask.this, "The difficulty number selected will assist in the calculation of the estimated duration of the task.", Toast.LENGTH_LONG).show();
+                Toast.makeText(EditTaskF.this, "The difficulty number selected will assist in the calculation of the estimated duration of the task.", Toast.LENGTH_LONG).show();
 
             }
         });
         infoPages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EditTask.this, "The number of pages you need to read will assist in the calculation of the estimated duration of the task.", Toast.LENGTH_LONG).show();
+                Toast.makeText(EditTaskF.this, "The number of pages you need to read will assist in the calculation of the estimated duration of the task.", Toast.LENGTH_LONG).show();
 
             }
         });infoSubTasks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EditTask.this, "The number of sub task will assist in the calculation of the estimated duration of the task.", Toast.LENGTH_LONG).show();
+                Toast.makeText(EditTaskF.this, "The number of sub task will assist in the calculation of the estimated duration of the task.", Toast.LENGTH_LONG).show();
 
             }
         });infoDuration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EditTask.this, "This is an estimated duration of your task based on the difficulty, number of pages you are reading, number of sub task expected, and your reading speed.", Toast.LENGTH_LONG).show();
+                Toast.makeText(EditTaskF.this, "This is an estimated duration of your task based on the difficulty, number of pages you are reading, number of sub task expected, and your reading speed.", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -205,7 +205,7 @@ public class EditTask extends AppCompatActivity {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(EditTask.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListenerStart, year, month, day);
+                DatePickerDialog dialog = new DatePickerDialog(EditTaskF.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListenerStart, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
@@ -232,7 +232,7 @@ public class EditTask extends AppCompatActivity {
                 int month2 = calendar.get(Calendar.MONTH);
                 int day2 = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(EditTask.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListenerEnd, year2, month2, day2);
+                DatePickerDialog dialog = new DatePickerDialog(EditTaskF.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListenerEnd, year2, month2, day2);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 

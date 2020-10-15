@@ -15,11 +15,13 @@ import android.widget.Toast;
 import com.arrsdesign.oclock.modelSubTask.AdapterC;
 import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.TaskInput;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,9 @@ public class Current extends Fragment {
     RecyclerView recyclerView, subTaskRecycler;
     ArrayList<TaskInput> list;
     AdapterC adapterC;
+    private FirebaseFirestore mStore;
+    private FirebaseAuth mAuth;
+    String userID;
 
 
     public Current() {
@@ -46,7 +51,10 @@ public class Current extends Fragment {
         list = new ArrayList<TaskInput>();
 
         //Get Firebase Data
-        reference = FirebaseDatabase.getInstance().getReference().child("Current Task");
+        mAuth = FirebaseAuth.getInstance();
+        mStore = FirebaseFirestore.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
+        reference = FirebaseDatabase.getInstance().getReference().child("Current Task" + userID);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
