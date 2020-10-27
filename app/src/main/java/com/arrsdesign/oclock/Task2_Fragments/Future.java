@@ -16,11 +16,13 @@ import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.TaskInput;
 import com.arrsdesign.oclock.modelSubTask.AdapterC;
 import com.arrsdesign.oclock.modelSubTask.AdapterF;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -30,6 +32,9 @@ public class Future extends Fragment {
     RecyclerView recyclerView;
     ArrayList<TaskInput> list;
     AdapterF adapterF;
+    private FirebaseFirestore mStore;
+    private FirebaseAuth mAuth;
+    String userID;
 
 
     public Future() {
@@ -47,7 +52,10 @@ public class Future extends Fragment {
         list = new ArrayList<TaskInput>();
 
         //Get Firebase Data
-        reference = FirebaseDatabase.getInstance().getReference().child("Future Task");
+        mAuth = FirebaseAuth.getInstance();
+        mStore = FirebaseFirestore.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
+        reference = FirebaseDatabase.getInstance().getReference().child("Future Task" + userID);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -1,13 +1,17 @@
 package com.arrsdesign.oclock.TaskCreation_Fragment;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +19,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arrsdesign.oclock.R;
 import com.arrsdesign.oclock.Task2;
+import com.arrsdesign.oclock.Task2_Fragments.Current;
+import com.arrsdesign.oclock.Task2_Fragments.Future;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -38,15 +48,18 @@ import javax.annotation.Nullable;
 import static com.arrsdesign.oclock.Register.TAG;
 
 public class Other extends Fragment {
-    private Button createTask;
-    private EditText taskName, pages, subTask;
-    private TextView selectedDifficulty, dateStart, dateEnd;
-    private SeekBar difficulty;
-    private DatePickerDialog.OnDateSetListener dateSetListenerStart;
-    private DatePickerDialog.OnDateSetListener dateSetListenerEnd;
-    private Integer number = new Random().nextInt();
-    private FirebaseAuth mAuth;
+    Button createTask;
+    EditText taskName, pages, subTask;
+    TextView selectedDifficulty, dateStart, dateEnd, minute, hour, day;
+    SeekBar difficulty;
+    DatePickerDialog.OnDateSetListener dateSetListenerStart;
+    DatePickerDialog.OnDateSetListener dateSetListenerEnd;
+    Integer number = new Random().nextInt();
+    String key = Integer.toString(number);
+    DatabaseReference reference, referenceFuture;
+    ImageView info, infoSubTasks, infoDuration;
     private FirebaseFirestore mStore;
+    private FirebaseAuth mAuth;
     String userID;
 
 
@@ -58,18 +71,63 @@ public class Other extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_other, container, false);
 
-        createTask = view.findViewById(R.id.createTaskBtnR);
+        //Task Title
         taskName = view.findViewById(R.id.taskNameR);
+
+        //Date Selection
         dateStart = view.findViewById(R.id.editTextDateStart);
         dateEnd = view.findViewById(R.id.editTextDateEnd);
+
+        //Pages and Sub
         pages = view.findViewById(R.id.numberOfPagesR);
         subTask = view.findViewById(R.id.numberOfSubTasksR);
+
+        //Difficulty
         difficulty = view.findViewById(R.id.difficultySelectionR);
         selectedDifficulty = view.findViewById(R.id.selectedDifficultyR);
+
+        //Time Calculation
+        minute = view.findViewById(R.id.timeInMinutes);
+        hour = view.findViewById(R.id.timeInHours);
+        day = view.findViewById(R.id.timeInDays);
+
+        //Information Button
+        info = view.findViewById(R.id.info);
+        infoSubTasks = view.findViewById(R.id.infoSubTasks);
+        infoDuration = view.findViewById(R.id.infoDuration);
+
+        //Button
+        createTask = view.findViewById(R.id.createTaskBtnR);
+
+        //Insert data to database
         mAuth = FirebaseAuth.getInstance();
         mStore = FirebaseFirestore.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
+        reference = FirebaseDatabase.getInstance().getReference().child("Current Task" + userID).child("Task"+number);
+        referenceFuture = FirebaseDatabase.getInstance().getReference().child("Future Task" + userID).child("Task"+number);
 
-        //Deadline Selection
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "The difficulty number selected will assist in the calculation of the estimated duration of the task.", Toast.LENGTH_LONG).show();
+
+            }
+        });infoSubTasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "The number of sub task will assist in the calculation of the estimated duration of the task.", Toast.LENGTH_LONG).show();
+
+            }
+        });infoDuration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "This is an estimated duration of your task based on the difficulty, number of pages you are reading, number of sub task expected, and your reading speed.", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+        //Start Date Selection
         dateStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +136,7 @@ public class Other extends Fragment {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListenerStart, year,month,day);
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListenerStart, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
@@ -95,6 +153,7 @@ public class Other extends Fragment {
 
             }
         };
+
         //Deadline Selection
         dateEnd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +163,7 @@ public class Other extends Fragment {
                 int month2 = calendar.get(Calendar.MONTH);
                 int day2 = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListenerEnd, year2,month2,day2);
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListenerEnd, year2, month2, day2);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
@@ -143,36 +202,105 @@ public class Other extends Fragment {
         createTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Get All Values from text Fields
-                String title = taskName.getText().toString();
-                String startDate = dateStart.getText().toString();
-                String endDate = dateEnd.getText().toString();
+                String name = taskName.getText().toString();
+                String start = dateStart.getText().toString();
+                String end = dateEnd.getText().toString();
                 String difficulty = selectedDifficulty.getText().toString();
-                String numberSubTasks = subTask.getText().toString();
-                //String estMin = taskName.getText().toString();
-                //String estHrs = taskName.getText().toString();
-                //String estDays = taskName.getText().toString();
+                String pagesNumber = pages.getText().toString();
+                String subNumber = subTask.getText().toString();
 
-                Toast.makeText(getContext(), "Task Created", Toast.LENGTH_LONG).show();
-                userID = mAuth.getCurrentUser().getUid();
-                DocumentReference documentReference = mStore.collection("Current Tasks").document(String.valueOf(number));
-                Map<String, Object> user = new HashMap<>();
-                user.put("Task Title", title);
-                user.put("Start Data", startDate);
-                user.put("End Data", endDate);
-                user.put("Difficulty", difficulty);
-                user.put("Number of Sub Tasks", numberSubTasks);
 
-                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                if (TextUtils.isEmpty(name)) {
+                    taskName.setError("Enter Task Name");
+                    return;
+                } else if (TextUtils.isEmpty(start)) {
+                    dateStart.setError("Enter Start Date");
+                    return;
+                } else if (TextUtils.isEmpty(end)) {
+                    dateEnd.setError("Enter Deadline");
+                    return;
+                } else if (TextUtils.isEmpty(difficulty)) {
+                    selectedDifficulty.setError("Enter Difficulty");
+                    return;
+                } else if (TextUtils.isEmpty(pagesNumber)) {
+                    pages.setError("Enter number of pages to read.");
+                    return;
+                } else if (TextUtils.isEmpty(subNumber)) {
+                    subTask.setError("Enter number of expected sub task.");
+                    return;
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Task Created");
+                builder.setMessage("Where would you like to send your task?");
+
+                builder.setPositiveButton("Current Task", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "On Success: current task is created for " + userID);
+                    public void onClick(DialogInterface dialog, int which) {
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                snapshot.getRef().child("titleTask").setValue(taskName.getText().toString());
+                                snapshot.getRef().child("startDate").setValue(dateStart.getText().toString());
+                                snapshot.getRef().child("endDate").setValue(dateEnd.getText().toString());
+                                snapshot.getRef().child("difficultyNumber").setValue(selectedDifficulty.getText().toString());
+                                snapshot.getRef().child("numberPages").setValue(pages.getText().toString());
+                                snapshot.getRef().child("numberSub").setValue(subTask.getText().toString());
+                                snapshot.getRef().child("timeInMinutes").setValue(minute.getText().toString());
+                                snapshot.getRef().child("timeInHours").setValue(hour.getText().toString());
+                                snapshot.getRef().child("timeInDays").setValue(day.getText().toString());
+
+                                snapshot.getRef().child("key").setValue(key);
+
+                                Intent a = new Intent(getContext(), Current.class);
+                                startActivity(a);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
                     }
                 });
 
-                Intent taskCreation = new Intent(getActivity(), Task2.class);
-                startActivity(taskCreation);
+
+                builder.setNegativeButton("Future Task", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        referenceFuture.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                snapshot.getRef().child("titleTask").setValue(taskName.getText().toString());
+                                snapshot.getRef().child("startDate").setValue(dateStart.getText().toString());
+                                snapshot.getRef().child("endDate").setValue(dateEnd.getText().toString());
+                                snapshot.getRef().child("difficultyNumber").setValue(selectedDifficulty.getText().toString());
+                                snapshot.getRef().child("numberPages").setValue(pages.getText().toString());
+                                snapshot.getRef().child("numberSub").setValue(subTask.getText().toString());
+                                snapshot.getRef().child("timeInMinutes").setValue(minute.getText().toString());
+                                snapshot.getRef().child("timeInHours").setValue(hour.getText().toString());
+                                snapshot.getRef().child("timeInDays").setValue(day.getText().toString());
+
+                                snapshot.getRef().child("key").setValue(key);
+
+                                Intent b = new Intent(getContext(), Future.class);
+                                startActivity(b);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                    }
+                });
+
+                builder.show();
+
+
             }
         });
 
